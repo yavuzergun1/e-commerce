@@ -21,4 +21,12 @@
       }
     }
   }
+  .right{
+    display: flex;
+
+  a:first-child{
+    margin-right: 5px;
+  }
+
+  }
 }

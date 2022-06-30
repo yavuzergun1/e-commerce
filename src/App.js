@@ -1,20 +1,22 @@
-import './App.css';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Navbar from './components/Navbar/Navbar';
+import "./App.css";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar";
+import Login from "./pages/authorization/Login";
+import SignUp from "./pages/authorization/SignUp";
 function App() {
   return (
     <BrowserRouter>
-    <Routes>
-            <Route path="/*" element={<Navbar/>}>
-                {/* <Route path="signin"  element={<Signin/>}/>
-                <Route path="signup" element={<Signup/>}/>
-                <Route path="products" element={<Products/>}/>
+      <Routes>
+        <Route path="/*" element={<Navbar/>}>
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<SignUp />} />
+          {/* <Route path="products" element={<Products/>}/>
                 <Route path="product/:product_id" element={<ProductDetail/>}/> */}
-
-            </Route>
-    </Routes>
-</BrowserRouter>
+                </Route>
+      </Routes>
+    </BrowserRouter>
   );
+
 }
 
 export default App;
