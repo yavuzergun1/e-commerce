@@ -1,7 +1,18 @@
 .product-details-main{
     display: flex;
-}
+
 .slider-main-container{
     width: 50%; 
-    
+}
+.right{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding:30px 10px;
+}
+.description{
+    width: 96%;
+    height: 150px;
+  overflow-y: scroll;
+}
 }

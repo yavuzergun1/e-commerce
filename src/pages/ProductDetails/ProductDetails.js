@@ -28,7 +28,7 @@ function ProductDetails() {
           {data.title}{" "}
         </Text>
         <Text>{moment(data.createdAt).format("DD/MM/YYYY")}</Text>
-        <p>{data.description} </p>
+        <p className="description">{data.description} </p>
         <Button colorScheme="purple">Add to Basket</Button>
       </div>
     </div>

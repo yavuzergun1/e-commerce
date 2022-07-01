@@ -1,11 +1,12 @@
 .react-slideshow-container{
-    height: 350px;
+    width: 100%;
+    padding: 15px;
+    height: 90vh;
 }
 .each-slide-effect > div {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-size: cover;
     height: 350px;
   }
   

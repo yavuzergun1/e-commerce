@@ -9,7 +9,7 @@ const ZoomInExample = ({data}) => {
         <Zoom duration={3000} scale={1.4} indicators={true}>
             {data.photos.map((each, index) => (
                 <div key={index} style={{ width: "100%" }}>
-                    <img style={{ objectFit: "cover", height:"100vh", width: "100%" }} alt="Slide Image" src={each} />
+                    <img style={{ objectFit: "cover", height:"80vh", width: "100%" }} alt="Slide Image" src={each} />
                 </div>
             ))}
         </Zoom>
