@@ -6,7 +6,7 @@ import moment from "moment";
 function Card({ item }) {
   return (
     <Box borderWidth="1px" borderRadius="lg" p="3" overflow="hidden">
-      <Link to={`products/product/:${item._id}`}>
+      <Link to={`/product/${item._id}`}>
         <Image src={item.photos[0]} alt="product" loading="lazy"/>
         <Box p="6">
           <Box d="plex" alignItems="baseline">
