@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
-import { Button, ButtonGroup } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import "./navbar.scss";
 
 function Navbar() {
@@ -13,7 +13,7 @@ function Navbar() {
         </div>
         <ul className="menu">
           <li>
-            <Link to="/">Products</Link>
+            <Link to="/products">Products</Link>
           </li>
         </ul>
       </div>
