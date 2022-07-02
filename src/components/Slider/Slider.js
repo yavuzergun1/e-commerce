@@ -1,7 +1,6 @@
 import React from 'react';
 import { Zoom } from 'react-slideshow-image';
-import 'react-slideshow-image/dist/styles.css';
-import "./slider.scss"
+import "./slider.scss";
 
 const ZoomInExample = ({data}) => {
  
@@ -15,5 +14,4 @@ const ZoomInExample = ({data}) => {
         </Zoom>
     );
 };
-
 export default ZoomInExample;

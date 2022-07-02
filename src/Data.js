@@ -1,11 +1,11 @@
 import axios from "axios";
 
-export const getProductList = async () => {
-  const { data } =await axios.get("http://localhost:4000/product");
+export const getProductList = async ({ pageParam = 1 }) => {
+  const { data } =await axios.get(`${process.env.REACT_APP_BASE_ENDPOINT}/product?page=${ pageParam }`);
   return data;
 };
 
 export const getProduct = async (id) => {
-  const { data } =await axios.get(`http://localhost:4000/product/${id}`);
+  const { data } =await axios.get(`${process.env.REACT_APP_BASE_ENDPOINT}/product/${id}`);
   return data;
 };
