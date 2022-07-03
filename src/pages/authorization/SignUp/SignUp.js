@@ -67,7 +67,7 @@ function SignUp() {
                   isInvalid={touched.password && errors.password}
                 />
               </FormControl>
-
+                  console.log();
               <FormControl mt="4">
                 <FormLabel>Password Confirm</FormLabel>
                 <Input
