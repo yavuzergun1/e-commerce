@@ -1,6 +1,15 @@
 import React from 'react'
 import {Flex, Box, Heading, FormControl, FormLabel, Input, Button} from '@chakra-ui/react';
+import {useFormik} from 'formik';
+
 function SignUp() {
+  const {handleSubmit, handleChange, values}  = useFormik({
+    initialValues: {
+        email: "",
+        password: "",
+        passwordConfirm: "",
+    },
+  })
   return (
     <div>
       <Flex align="center" width="full" justifyContent="center" >
