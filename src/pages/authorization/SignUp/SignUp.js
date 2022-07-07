@@ -12,8 +12,11 @@ import {
 import { ErrorMessage, useFormik } from "formik";
 import validationSchema from "./Validations";
 import { postRegister } from "../../../Data";
+import {UseAuth} from "../../../contexts/AuthContext";
 
 function SignUp() {
+const {login} = UseAuth();
+
   const { handleSubmit, handleChange, values, errors, touched } = useFormik({
     initialValues: {
       email: "",
@@ -27,6 +30,7 @@ function SignUp() {
           email: values.email,
           password: values.password,
         });
+        login(registerResponse)
         console.log(registerResponse);
       } catch (error) {
         bag.setErrors({ general: error.response.data.message });
@@ -41,9 +45,9 @@ function SignUp() {
             <Heading>Sign Up</Heading>
           </Box>
           <Box my={5}>
-         { errors.general && (
-          <Alert backgroundColor="pink" >{errors.general}</Alert>
-         ) }
+            {errors.general && (
+              <Alert backgroundColor="pink">{errors.general}</Alert>
+            )}
           </Box>
           <Box my={5} textAlign="left">
             <form onSubmit={handleSubmit}>
@@ -55,8 +59,10 @@ function SignUp() {
                   isInvalid={
                     touched.email && errors.email
                   } /* touched yazılmazsa forma tıklandığı anda hata verir */
+
                 />
               </FormControl>
+              {touched.email && errors.email}
 
               <FormControl mt="4">
                 <FormLabel>Password</FormLabel>
@@ -67,6 +73,8 @@ function SignUp() {
                   isInvalid={touched.password && errors.password}
                 />
               </FormControl>
+              {touched.password && errors.password}
+
               <FormControl mt="4">
                 <FormLabel>Password Confirm</FormLabel>
                 <Input
@@ -76,6 +84,7 @@ function SignUp() {
                   isInvalid={touched.passwordConfirm && errors.passwordConfirm}
                 />
               </FormControl>
+              {touched.passwordConfirm && errors.passwordConfirm}
 
               <Button mt="4" width="full" type="submit">
                 Sign Up
