@@ -1,5 +1,5 @@
 import axios from "axios";
-
+// aşağıdaki işlem istek yapmadan önce authorization header yüklenmesini sağlıyor
 axios.interceptors.request.use(
   function (config) {
     // Do something before request is sent
@@ -39,6 +39,7 @@ export const postRegister = async (input) => {
     `${process.env.REACT_APP_BASE_ENDPOINT}/auth/register`,
     input
   );
+  console.log(input);
   return data;
 };
 

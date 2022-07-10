@@ -1,11 +1,12 @@
 import { useState, createContext, useEffect, useContext } from "react";
 import { fetchMe } from "../Data";
-
+import { Flex, Spinner } from "@chakra-ui/react";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [isLogin, setIsLogin] = useState(false);
+  const [isLoading, setIsLoading]= useState(true);
 
   useEffect(() => {
     // çağırdığımız fonksiyon async bir fonksiyon. Bu yüzden useEffect içinde bunu async olarak çağırmamız gerekli. bunu da aşağıdaki gibi yapılamadığı için içeride bir anonymus fonksiyon yazıldı.
@@ -15,8 +16,10 @@ const AuthProvider = ({ children }) => {
         console.log("me", me);
         setIsLogin(true);
         setUser(me);
-
-      } catch (e) {}
+        setIsLoading(false);
+      } catch (e) {
+        setIsLoading(false)
+      }
     })();
   }, []);
 
@@ -39,6 +42,14 @@ const AuthProvider = ({ children }) => {
     user,
     login,
   };
+
+  if(isLoading){
+    return (
+      <Flex justifyContent="center" alignItems="center" height="100vh">
+        <Spinner size="xl"/>
+      </Flex>
+    )
+  }
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
