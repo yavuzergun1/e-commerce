@@ -39,7 +39,6 @@ export const postRegister = async (input) => {
     `${process.env.REACT_APP_BASE_ENDPOINT}/auth/register`,
     input
   );
-  console.log(input);
   return data;
 };
 
@@ -49,3 +48,11 @@ export const fetchMe = async () => {
   );
   return data;
 };
+
+export const postLogout = async() => {
+  const {data} = await axios.post(`${process.env.REACT_APP_BASE_ENDPOINT}/auth/logout`, {
+    refresh_token: localStorage.getItem("refresh-token"),
+  }
+  );
+  return data;
+}

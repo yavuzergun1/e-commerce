@@ -9,6 +9,7 @@ import {
   Button,
   Alert,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import { ErrorMessage, useFormik } from "formik";
 import validationSchema from "./Validations";
 import { postRegister } from "../../../Data";
@@ -16,6 +17,7 @@ import {UseAuth} from "../../../contexts/AuthContext";
 
 function SignUp() {
 const {login} = UseAuth();
+const navigate = useNavigate();
 
   const { handleSubmit, handleChange, values, errors, touched } = useFormik({
     initialValues: {
@@ -32,6 +34,7 @@ const {login} = UseAuth();
         });
         login(registerResponse)
         console.log(registerResponse);
+        navigate("/products")
       } catch (error) {
         bag.setErrors({ general: error.response.data.message });
       }
