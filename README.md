@@ -1,3 +1,2 @@
-started in 28.06.22
 
 not finished yet...
