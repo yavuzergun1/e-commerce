@@ -11,9 +11,9 @@ import { UseAuth } from "./contexts/AuthContext";
 function App() {
   const {user} = UseAuth();
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Routes>
-        <Route path="/*" element={<Navbar />}>
+        <Route path="/" element={<Navbar />}>
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="products" element={<Products />} />
