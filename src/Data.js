@@ -35,12 +35,20 @@ export const getProduct = async (id) => {
 };
 
 export const postRegister = async (input) => {
-  const { data } = await axios.post(
+  const {data} = await axios.post(
     `${process.env.REACT_APP_BASE_ENDPOINT}/auth/register`,
     input
   );
   return data;
 };
+
+export const postLogin = async (input) => {
+  const {data} = await axios.post(`${process.env.REACT_APP_BASE_ENDPOINT}/auth/login`,
+  input
+  );
+  return data;
+};
+
 
 export const fetchMe = async () => {
   const { data } = await axios.get(
