@@ -6,7 +6,10 @@ import SignUp from "./pages/authorization/SignUp/SignUp";
 import Products from "./pages/Products/Products";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Profile from "./pages/authorization/Profile/Profile";
+import { PrivateRoutes } from "./pages/authorization/PrivateRoutes";
+import { UseAuth } from "./contexts/AuthContext";
 function App() {
+  const {user} = UseAuth();
   return (
     <BrowserRouter>
       <Routes>
@@ -15,7 +18,10 @@ function App() {
           <Route path="signup" element={<SignUp />} />
           <Route path="products" element={<Products />} />
           <Route path="product/:product_id" element={<ProductDetails />} />
-          <Route path="profile" element={<Profile />} />
+          {/* Profile Route'unu PrivateRoutes ile sarmalıyoruz.  */}
+          <Route element={<PrivateRoutes/>}>  
+          <Route path="profile" element={<Profile/>} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

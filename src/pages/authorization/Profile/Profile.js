@@ -1,5 +1,5 @@
 import { Button, Heading } from "@chakra-ui/react";
-import { Link,useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import React from "react";
 import { UseAuth } from "../../../contexts/AuthContext";
 import { postLogout } from "../../../Data";
