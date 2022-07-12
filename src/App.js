@@ -9,6 +9,7 @@ import Profile from "./pages/authorization/Profile/Profile";
 import { PrivateRoutes } from "./pages/authorization/PrivateRoutes";
 import { UseAuth } from "./contexts/AuthContext";
 import Home from "./pages/Home/Home";
+import Basket from "./pages/Basket/Basket";
 function App() {
   const { user } = UseAuth();
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="signup" element={<SignUp />} />
           <Route path="products" element={<Products />} />
           <Route path="product/:product_id" element={<ProductDetails />} />
+          <Route path="basket" element={<Basket />} />
           {/* Profile Route'unu PrivateRoutes ile sarmalıyoruz.  */}
           <Route element={<PrivateRoutes />}>
             <Route path="profile" element={<Profile />} />

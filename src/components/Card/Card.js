@@ -14,7 +14,7 @@ function Card({ item }) {
   );
 
   return (
-    <Box borderWidth="1px" borderRadius="lg" p="3" overflow="hidden">
+    <Box borderWidth="1px" borderRadius="5" p="3" overflow="hidden">
       <Link to={`/product/${item._id}`}>
         <Image src={item.photos[0]} alt="product" loading="lazy" />
         <Box p="6">
