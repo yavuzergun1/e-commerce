@@ -9,9 +9,11 @@ import {XyzTransition, XyzTransitionGroup} from "@animxyz/react";
 import Slider from "../../components/Slider/Slider";
 import moment from "moment";
 import "./productDetails.scss";
+import { UseAuth } from "../../contexts/AuthContext";
 
 function ProductDetails() {
   const { product_id } = useParams();
+  const {isLogin} = UseAuth();
   const { items, setItems, addToBasket } = UseBasket();
 
   const { isLoading, isError, data } = useQuery(["product", product_id], () =>
@@ -41,11 +43,11 @@ function ProductDetails() {
         <Text>{moment(data.createdAt).format("DD/MM/YYYY")}</Text>
         <p className="description">{data.description} </p>
 
-        <Button colorScheme="purple" onClick={() => addToBasket(data, isBasketItem)} >{ isBasketItem ? "Remove Item ": "Add to Basket"} </Button>
+        <Button colorScheme={isLogin && isBasketItem ? "purple" : "green"} onClick={() => addToBasket(data, isBasketItem)} >{isLogin && isBasketItem ? "Remove Item ": "Add to Basket"} </Button>
         {/* <XyzTransition xyz="fade">
   {isBasketItem && <div>added to basket</div> }
 </XyzTransition> */}
-<div className={isBasketItem ? "deneme" : "none"}></div>
+<div className={isLogin && isBasketItem ? "deneme" : "none"}></div>
 
       </div>
     </div>

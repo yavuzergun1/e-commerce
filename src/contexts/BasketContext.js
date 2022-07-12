@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
 import { createContext } from "react";
+import { UseAuth } from "./AuthContext";
 
 const BasketContext = createContext();
 
 const BasketProvider = ({ children }) => {
+  const{isLogin} = UseAuth();
   const [items, setItems] = useState([]);
 
   const addToBasket = (data, isBasketItem, item) => {
@@ -12,8 +14,10 @@ const BasketProvider = ({ children }) => {
     if (isBasketItem) {
       const filtered = items.filter((item) => item._id !== isBasketItem._id);
       return setItems(filtered);
-    }
-    setItems((prev) => [...prev, data]);/* ürün sepette değilse sepete ekle */
+    } if(isLogin){
+      setItems((prev) => [...prev, data]);/* ürün sepette değilse ve üye girişi yapılmışsa sepete ekle */
+    } else {alert("please login or sign up")} /* üye girişi yapılmamışsa uyarı ver */
+    
   };
 
   const values = {
