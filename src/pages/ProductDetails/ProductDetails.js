@@ -5,7 +5,7 @@ import { getProduct } from "../../Data";
 import { Text, Button } from "@chakra-ui/react";
 import { UseBasket } from "../../contexts/BasketContext";
 import "@animxyz/core";
-import {XyzTransition} from "@animxyz/react";
+import {XyzTransition, XyzTransitionGroup} from "@animxyz/react";
 import Slider from "../../components/Slider/Slider";
 import moment from "moment";
 import "./productDetails.scss";
@@ -50,9 +50,10 @@ function ProductDetails() {
         <p className="description">{data.description} </p>
 
         <Button colorScheme="purple" onClick={addToBasket} >{ isBasketItem ? "Remove Item ": "Add to Basket"} </Button>
-        <XyzTransition xyz="fade">
+        {/* <XyzTransition xyz="fade">
   {isBasketItem && <div>added to basket</div> }
-</XyzTransition>
+</XyzTransition> */}
+<div className={isBasketItem ? "deneme" : "none"}></div>
 
       </div>
     </div>
