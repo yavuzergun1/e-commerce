@@ -10,18 +10,20 @@ import { PrivateRoutes } from "./pages/authorization/PrivateRoutes";
 import { UseAuth } from "./contexts/AuthContext";
 import Home from "./pages/Home/Home";
 import Basket from "./pages/Basket/Basket";
+import Error404 from "./pages/Error/Error404";
 function App() {
   const { user } = UseAuth();
   return (
     <BrowserRouter basename="/">
       <Routes>
         <Route path="/" element={<Navbar />}>
-        <Route path="e-commerce" element={<Home />} />
+          <Route path="e-commerce" element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="products" element={<Products />} />
           <Route path="product/:product_id" element={<ProductDetails />} />
           <Route path="basket" element={<Basket />} />
+          <Route path="*" element={<Error404 />} />
           {/* Profile Route'unu PrivateRoutes ile sarmalıyoruz.  */}
           <Route element={<PrivateRoutes />}>
             <Route path="profile" element={<Profile />} />
