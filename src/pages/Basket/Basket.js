@@ -1,4 +1,4 @@
-import { Alert, Box } from "@chakra-ui/react";
+import { Alert, Box, Grid } from "@chakra-ui/react";
 import React from "react";
 import Card from "../../components/Card/Card";
 import { UseBasket } from "../../contexts/BasketContext";
@@ -9,18 +9,15 @@ function Basket() {
   return (
     <div>
       {items.length < 1 && <Alert status="warning">Box is Empty</Alert>}
-      <div className="main-container">
-        <div className="cards-container">
+      <Grid templateColumns="repeat(3, 2fr)" gap={6} px="5" py="2" > 
+
           {items.map((item) => (
             <React.Fragment key={item._id}>
-              <div className="card-container">
                 <Card item={item} />
-              </div>
             </React.Fragment>
           ))}
+          </Grid>
         </div>
-      </div>
-    </div>
   );
 }
 
