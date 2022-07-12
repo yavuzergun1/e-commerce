@@ -12,7 +12,7 @@ import "./productDetails.scss";
 
 function ProductDetails() {
   const { product_id } = useParams();
-  const { items, setItems } = UseBasket();
+  const { items, setItems, addToBasket } = UseBasket();
 
   const { isLoading, isError, data } = useQuery(["product", product_id], () =>
     getProduct(product_id)
@@ -27,15 +27,7 @@ function ProductDetails() {
   // sepete eklenen ürün daha önce eklenenler arasında mı ona bakıyor
   const isBasketItem = items.find((item) => item._id === product_id)
 
-  const addToBasket = () => {
-    console.log("basket items", items);
-// Eğer ürün sepetteyse sepetten çıkar
-    if (isBasketItem) {
-      const filtered = items.filter((item) => item._id !== isBasketItem._id);
-      return setItems(filtered);
-    }
-    setItems((prev) => [...prev, data]);/* ürün sepette değilse sepete ekle */
-  };
+ 
 
   return (
     <div className="product-details-main">
@@ -49,7 +41,7 @@ function ProductDetails() {
         <Text>{moment(data.createdAt).format("DD/MM/YYYY")}</Text>
         <p className="description">{data.description} </p>
 
-        <Button colorScheme="purple" onClick={addToBasket} >{ isBasketItem ? "Remove Item ": "Add to Basket"} </Button>
+        <Button colorScheme="purple" onClick={() => addToBasket(data, isBasketItem)} >{ isBasketItem ? "Remove Item ": "Add to Basket"} </Button>
         {/* <XyzTransition xyz="fade">
   {isBasketItem && <div>added to basket</div> }
 </XyzTransition> */}

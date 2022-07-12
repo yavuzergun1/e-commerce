@@ -2,8 +2,14 @@ import React from "react";
 import { Box, Image, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import { UseBasket } from "../../contexts/BasketContext";
 
 function Card({ item }) {
+const {addToBasket, items} = UseBasket();
+
+const isBasketItem = items.find((basket_item) => basket_item._id === item._id);
+
+
   return (
     <Box borderWidth="1px" borderRadius="lg" p="3" overflow="hidden">
       <Link to={`/product/${item._id}`}>
@@ -19,7 +25,11 @@ function Card({ item }) {
         </Box>
       </Link>
       <Box p="6"></Box>
-      <Button colorScheme="pink">Add to Basket</Button>
+      <Button colorScheme={isBasketItem ? "pink" : "green"} onClick={() => addToBasket(item, isBasketItem)} >
+        {
+          isBasketItem ? "Remove from Basket" : "Add to Basket"
+        }
+      </Button>
     </Box>
   );
 }
