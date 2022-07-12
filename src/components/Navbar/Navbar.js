@@ -16,7 +16,7 @@ console.log(items);
       <nav className="nav">
         <div className="left">
           <div className="logo">
-            <Link to="/">eCommerce</Link>
+            <Link to="/e-commerce">eCommerce</Link>
           </div>
           <ul className="menu">
             <li>
