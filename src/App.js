@@ -8,19 +8,21 @@ import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Profile from "./pages/authorization/Profile/Profile";
 import { PrivateRoutes } from "./pages/authorization/PrivateRoutes";
 import { UseAuth } from "./contexts/AuthContext";
+import Home from "./pages/Home/Home";
 function App() {
-  const {user} = UseAuth();
+  const { user } = UseAuth();
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Routes>
-        <Route path="/*" element={<Navbar />}>
+        <Route path="/" element={<Navbar />}>
+        <Route path="e-commerce" element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="products" element={<Products />} />
           <Route path="product/:product_id" element={<ProductDetails />} />
           {/* Profile Route'unu PrivateRoutes ile sarmalıyoruz.  */}
-          <Route element={<PrivateRoutes/>}>  
-          <Route path="profile" element={<Profile/>} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="profile" element={<Profile />} />
           </Route>
         </Route>
       </Routes>

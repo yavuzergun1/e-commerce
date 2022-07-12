@@ -3,10 +3,14 @@ import { Link, Outlet } from "react-router-dom";
 import { Button } from "@chakra-ui/react";
 import "./navbar.scss";
 import { UseAuth } from "../../contexts/AuthContext";
+import { UseBasket } from "../../contexts/BasketContext";
 
 function Navbar() {
   const { isLogin } = UseAuth();
-  console.log(isLogin);
+  const {items} = UseBasket();
+
+console.log(items);
+
   return (
     <div>
       <nav className="nav">
@@ -35,6 +39,13 @@ function Navbar() {
 
           {isLogin && (
             <>
+
+{items.length > 0 && (
+  <Link to="/basket">
+    <Button colorScheme="facebook" variant="outline" > Basket: {items.length} item </Button>
+  </Link>
+)}
+
             <Link to="/profile" className="profile">
                 <Button colorScheme="blue">Profile</Button>
               </Link>
