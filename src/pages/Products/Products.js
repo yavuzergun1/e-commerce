@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "../../components/Card/Card";
-import { Box, Flex, Grid, Spinner, Alert, AlertIcon, AlertTitle, AlertDescription } from "@chakra-ui/react";
+import { Box, Flex, Grid, Spinner } from "@chakra-ui/react";
 import { useInfiniteQuery } from "react-query";
 import { getProductList } from "../../Data";
 function Products() {
@@ -27,11 +27,7 @@ function Products() {
       <Spinner size="xl"/>
     </Flex>
   );
-  if (status === "error") return (<Alert status='error'>
-  <AlertIcon/>
-  <AlertTitle>Error404:</AlertTitle>
-  <AlertDescription>An Error was Occured:</AlertDescription> 
-  </Alert>) + error.message;
+  if (status === "error") return "An error has occurred: " + error.message;
 
   console.log(data);
   return (
