@@ -30,7 +30,7 @@ function Products() {
   if (status === "error") return (<Alert status='error'>
   <AlertIcon/>
   <AlertTitle>Error404:</AlertTitle>
-  <AlertDescription>An Error was Occured!</AlertDescription> 
+  <AlertDescription>An Error was Occured:</AlertDescription> 
   </Alert>) + error.message;
 
   console.log(data);
