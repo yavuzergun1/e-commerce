@@ -2,10 +2,10 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { getProduct } from "../../Data";
-import { Text, Button } from "@chakra-ui/react";
+import { Text,Button,Flex,Spinner} from "@chakra-ui/react";
 import { UseBasket } from "../../contexts/BasketContext";
 import "@animxyz/core";
-import {XyzTransition, XyzTransitionGroup} from "@animxyz/react";
+import {XyzTransition} from "@animxyz/react";
 import Slider from "../../components/Slider/Slider";
 import moment from "moment";
 import "./productDetails.scss";
@@ -20,7 +20,11 @@ function ProductDetails() {
     getProduct(product_id)
   );
   if (isLoading) {
-    return <div> Loading... </div>;
+    return (
+      <Flex justifyContent="center" alignItems="center" height="100vh">
+        <Spinner size="xl"/>
+      </Flex>
+    );
   }
   if (isError) {
     return <div>Error.</div>;
