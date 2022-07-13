@@ -33,16 +33,16 @@ function Basket() {
     initialValues: {
       name: "",
       phone: "",
-      adress: "",
+      address: "",
     },
     onSubmit: async (values) => {
       const itemIds = items.map((item) => item._id);
-      const adress = values.adress;
+      const address= values.address;
+      console.log(values.address)
       const input = {
-        adress,
+        address,
         items: JSON.stringify(itemIds)
       };
-      console.log("adress", adress)
       console.log(items);
       const response = await postOrder(input);
       
@@ -104,10 +104,10 @@ function Basket() {
                 </FormControl>
 
                 <FormControl mt={4}>
-                  <FormLabel>Adress</FormLabel>
+                  <FormLabel>Address</FormLabel>
                   <Textarea
-                    name="adress"
-                    placeholder="Adress"
+                    name="address"
+                    placeholder="Address"
                     onChange={handleChange}
                   />
                 </FormControl>
