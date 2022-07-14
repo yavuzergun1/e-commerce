@@ -14,7 +14,6 @@ const BasketProvider = ({ children }) => {
   }, [items]);
 
   const addToBasket = (data, isBasketItem, item) => {
-    console.log("basket items", items);
     // Eğer ürün sepetteyse sepetten çıkar
     if (isBasketItem) {
       const filtered = items.filter((item) => item._id !== isBasketItem._id);

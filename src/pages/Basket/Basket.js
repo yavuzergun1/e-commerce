@@ -15,6 +15,8 @@ import {
   Input,
   useDisclosure,
   Textarea,
+  Toast,
+  useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
@@ -24,11 +26,11 @@ import { UseBasket } from "../../contexts/BasketContext";
 import "./basket.scss";
 import { postOrder } from "../../Data";
 function Basket() {
-  const { items } = UseBasket();
+  const { items, setItems } = UseBasket();
   const total = items.reduce((acc, curr) => acc + curr.price, 0);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
-
+  const toast = useToast();
   const { handleSubmit, handleChange, values, errors, touched } = useFormik({
     initialValues: {
       name: "",
@@ -37,24 +39,37 @@ function Basket() {
     },
     onSubmit: async (values) => {
       const itemIds = items.map((item) => item._id);
-      const address= values.address;
-      console.log(values.address)
+      const address = values.address;
       const input = {
-        address,
-        items: JSON.stringify(itemIds)
+        address /* backendde karşılığı olmadığı için name ve phone verileri dahil edilmedi */,
+        items: JSON.stringify(itemIds),
       };
-      console.log(items);
       const response = await postOrder(input);
-      
+
       console.log("response", response);
 
+      onClose(); /* Modal'ı kapatır */
       // console.log("adress", adress);
+      toast({
+        position:"top",
+        title: 'Order Recieved',
+        description: "Your Order Has Been Received Successfully",
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      })
+      setItems([]); /* Sparişten sonra sepetin içini boşaltır */
     },
   });
+ 
+  console.log("items", items);
   return (
     <div>
       {items.length < 1 && <Alert status="warning">Box is Empty</Alert>}
       {/* <Grid templateColumns="repeat(3, 2fr)" gap={6} px="5" py="2" autoFlow="row dense" >  */}
+      <Box>
+        <Text></Text>
+      </Box>
       <div className="main-container">
         <div className="cards-container">
           {items.map((item) => (
@@ -70,8 +85,8 @@ function Basket() {
           <Text textAlign="left" fontSize="25">
             {total > 0 && `Total=${total}TL`}
           </Text>
-
-          <Button mt="2" size="sm" colorScheme="green" onClick={onOpen}>
+            {/* className: sepet boşsa order butonunu gösterme */}
+          <Button className={items.length < 1 && "none"} mt="2" size="sm" colorScheme="green" onClick={onOpen}>
             Order Now
           </Button>
         </Box>
