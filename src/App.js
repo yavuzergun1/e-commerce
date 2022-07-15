@@ -6,9 +6,11 @@ import SignUp from "./pages/authorization/SignUp/SignUp";
 import Products from "./pages/Products/Products";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Profile from "./pages/authorization/Profile/Profile";
-import { PrivateRoutes } from "./pages/authorization/PrivateRoutes";
 import { UseAuth } from "./contexts/AuthContext";
 import Home from "./pages/Home/Home";
+import AdminHome from "./pages/Admin/admin-home/Home";
+import Orders from "./pages/Admin/orders/Orders";
+import AdminProducts from "./pages/Admin/products/Products";
 import Basket from "./pages/Basket/Basket";
 import Error404 from "./pages/Error/Error404";
 import OrderDetails from "./pages/OrderDetails/OrderDetails";
@@ -47,7 +49,11 @@ function App() {
                 <Admin />{" "}
               </AdminPrivateRoutes>
             }
-          ></Route>
+          >
+          <Route path="/admin/home" element={<AdminHome />} />
+          <Route path="/admin/orders" element={<Orders />} />
+          <Route path="/admin/products" element={<AdminProducts />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

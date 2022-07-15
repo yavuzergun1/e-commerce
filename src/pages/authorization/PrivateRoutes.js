@@ -8,5 +8,5 @@ export const LoginPrivateRoutes = ({ children }) => {
 
 export const AdminPrivateRoutes = ({ children }) => {
   const { user } = UseAuth();
-  return user && user.role === "admin" ? children : <Navigate to="/signup" />;
+  return user && user.role === "admin" ? children : <Navigate to="/e-commerce" />;
 };
