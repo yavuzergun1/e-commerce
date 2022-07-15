@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 import { UseAuth } from "../../../contexts/AuthContext";
 import { postLogout } from "../../../Data";
+import { UseBasket } from "../../../contexts/BasketContext";
 
 function Profile() {
   const { user, setIsLogin, isLogin, setUser } = UseAuth();
-
+  const { setItems } = UseBasket();
   // const handleLogout = async() => {
   //   logout()
   // }
@@ -20,8 +21,9 @@ function Profile() {
 
     localStorage.removeItem("access-token");
     localStorage.removeItem("refresh-token");
-    
-    navigate("/products")
+
+    navigate("/products");
+    setItems([])
   };
   return (
     <div>
@@ -31,11 +33,10 @@ function Profile() {
       {JSON.stringify(user)}
       <br />
       <br />
-   
-        <Button colorScheme="blue" variant="solid" onClick={logout}>
-          Logout
-        </Button>
-  
+
+      <Button colorScheme="blue" variant="solid" onClick={logout}>
+        Logout
+      </Button>
     </div>
   );
 }
