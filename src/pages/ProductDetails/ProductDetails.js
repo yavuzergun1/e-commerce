@@ -2,23 +2,29 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { getProduct } from "../../Data";
-import { Text, Button } from "@chakra-ui/react";
+import { Text,Button,Flex,Spinner} from "@chakra-ui/react";
 import { UseBasket } from "../../contexts/BasketContext";
 import "@animxyz/core";
-import {XyzTransition, XyzTransitionGroup} from "@animxyz/react";
+import {XyzTransition} from "@animxyz/react";
 import Slider from "../../components/Slider/Slider";
 import moment from "moment";
 import "./productDetails.scss";
+import { UseAuth } from "../../contexts/AuthContext";
 
 function ProductDetails() {
   const { product_id } = useParams();
-  const { items, setItems } = UseBasket();
+  const {isLogin} = UseAuth();
+  const { items, setItems, addToBasket } = UseBasket();
 
   const { isLoading, isError, data } = useQuery(["product", product_id], () =>
     getProduct(product_id)
   );
   if (isLoading) {
-    return <div> Loading... </div>;
+    return (
+      <Flex justifyContent="center" alignItems="center" height="100vh">
+        <Spinner size="xl"/>
+      </Flex>
+    );
   }
   if (isError) {
     return <div>Error.</div>;
@@ -27,15 +33,7 @@ function ProductDetails() {
   // sepete eklenen ürün daha önce eklenenler arasında mı ona bakıyor
   const isBasketItem = items.find((item) => item._id === product_id)
 
-  const addToBasket = () => {
-    console.log("basket items", items);
-// Eğer ürün sepetteyse sepetten çıkar
-    if (isBasketItem) {
-      const filtered = items.filter((item) => item._id !== isBasketItem._id);
-      return setItems(filtered);
-    }
-    setItems((prev) => [...prev, data]);/* ürün sepette değilse sepete ekle */
-  };
+ 
 
   return (
     <div className="product-details-main">
@@ -49,11 +47,11 @@ function ProductDetails() {
         <Text>{moment(data.createdAt).format("DD/MM/YYYY")}</Text>
         <p className="description">{data.description} </p>
 
-        <Button colorScheme="purple" onClick={addToBasket} >{ isBasketItem ? "Remove Item ": "Add to Basket"} </Button>
+        <Button colorScheme={isLogin && isBasketItem ? "purple" : "green"} onClick={() => addToBasket(data, isBasketItem)} >{isLogin && isBasketItem ? "Remove Item ": "Add to Basket"} </Button>
         {/* <XyzTransition xyz="fade">
   {isBasketItem && <div>added to basket</div> }
 </XyzTransition> */}
-<div className={isBasketItem ? "deneme" : "none"}></div>
+<div className={isLogin && isBasketItem ? "deneme" : "none"}></div>
 
       </div>
     </div>

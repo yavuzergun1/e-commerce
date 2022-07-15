@@ -6,7 +6,7 @@ import { UseAuth } from "../../contexts/AuthContext";
 import { UseBasket } from "../../contexts/BasketContext";
 
 function Navbar() {
-  const { isLogin } = UseAuth();
+  const { isLogin, user } = UseAuth();
   const {items} = UseBasket();
 
 console.log(items);
@@ -16,7 +16,7 @@ console.log(items);
       <nav className="nav">
         <div className="left">
           <div className="logo">
-            <Link to="/">eCommerce</Link>
+            <Link to="/e-commerce">eCommerce</Link>
           </div>
           <ul className="menu">
             <li>
@@ -45,6 +45,14 @@ console.log(items);
     <Button colorScheme="facebook" variant="outline" > Basket: {items.length} item </Button>
   </Link>
 )}
+
+{
+  user?.role ==='admin' && (
+    <Link to="/admin">
+    <Button colorScheme="blue">admin</Button>
+    </Link>
+  )
+}
 
             <Link to="/profile" className="profile">
                 <Button colorScheme="blue">Profile</Button>
