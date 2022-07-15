@@ -20,18 +20,21 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
-import { useFormik } from "formik";
+import { useFormik, useFormikContext } from "formik";
 import Card from "../../components/Card/Card";
 import { UseBasket } from "../../contexts/BasketContext";
 import "./basket.scss";
 import { postOrder } from "../../Data";
+import { useNavigate } from "react-router-dom";
 function Basket() {
-  const { items, setItems } = UseBasket();
+  const { items, setItems, response } = UseBasket();
   const total = items.reduce((acc, curr) => acc + curr.price, 0);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
   const toast = useToast();
-  const { handleSubmit, handleChange, values, errors, touched } = useFormik({
+  const navigate = useNavigate()
+  
+  const { handleSubmit, handleChange} = useFormik({
     initialValues: {
       name: "",
       phone: "",
@@ -49,7 +52,7 @@ function Basket() {
       console.log("response", response);
 
       onClose(); /* Modal'ı kapatır */
-      // console.log("adress", adress);
+      // Spariş Başarılı Mesajı:
       toast({
         position:"top",
         title: 'Order Recieved',
@@ -59,6 +62,7 @@ function Basket() {
         isClosable: true,
       })
       setItems([]); /* Sparişten sonra sepetin içini boşaltır */
+      navigate("orderDetails") /* Spariş bilgi sayfasına yönlendirir */
     },
   });
  

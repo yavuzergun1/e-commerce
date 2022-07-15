@@ -73,4 +73,5 @@ export const postOrder = async (input) => {
     input
   );
   return data;
+  console.log("data", data);
 };

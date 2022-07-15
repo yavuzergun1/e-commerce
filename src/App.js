@@ -11,6 +11,7 @@ import { UseAuth } from "./contexts/AuthContext";
 import Home from "./pages/Home/Home";
 import Basket from "./pages/Basket/Basket";
 import Error404 from "./pages/Error/Error404";
+import OrderDetails from "./pages/OrderDetails/OrderDetails";
 function App() {
   const { user } = UseAuth();
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="products" element={<Products />} />
           <Route path="product/:product_id" element={<ProductDetails />} />
           <Route path="basket" element={<Basket />} />
+          <Route path="basket/orderDetails" element={<OrderDetails />} />
           <Route path="*" element={<Error404 />} />
           {/* Profile Route'unu PrivateRoutes ile sarmalıyoruz.  */}
           <Route element={<PrivateRoutes />}>
