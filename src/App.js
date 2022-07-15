@@ -12,6 +12,9 @@ import Home from "./pages/Home/Home";
 import Basket from "./pages/Basket/Basket";
 import Error404 from "./pages/Error/Error404";
 import OrderDetails from "./pages/OrderDetails/OrderDetails";
+import { LoginPrivateRoutes } from "./pages/authorization/PrivateRoutes";
+import { AdminPrivateRoutes } from "./pages/authorization/PrivateRoutes";
+import Admin from "./pages/Admin/Admin";
 function App() {
   const { user } = UseAuth();
   return (
@@ -26,10 +29,25 @@ function App() {
           <Route path="basket" element={<Basket />} />
           <Route path="basket/orderDetails" element={<OrderDetails />} />
           <Route path="*" element={<Error404 />} />
-          {/* Profile Route'unu PrivateRoutes ile sarmalıyoruz.  */}
-          <Route element={<PrivateRoutes />}>
-            <Route path="profile" element={<Profile />} />
-          </Route>
+          {/* login yapmadan profile sayfasına giriş yetkisi vermez */}
+          <Route
+            path="profile"
+            element={
+              <LoginPrivateRoutes>
+                <Profile />
+              </LoginPrivateRoutes>
+            }
+          ></Route>
+
+          {/* admin girişi yapmadan admin sayfasına giriş yetkisi vermez */}
+          <Route
+            path="admin"
+            element={
+              <AdminPrivateRoutes>
+                <Admin />{" "}
+              </AdminPrivateRoutes>
+            }
+          ></Route>
         </Route>
       </Routes>
     </BrowserRouter>
