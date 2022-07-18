@@ -40,6 +40,7 @@ const BasketProvider = ({ children }) => {
   const values = {
     items,
     setItems,
+   
     addToBasket,
   };
   return (

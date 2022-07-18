@@ -1,4 +1,5 @@
 import axios from "axios";
+import {UseBasket} from "./contexts/BasketContext";
 // aşağıdaki işlem istek yapmadan önce authorization header yüklenmesini sağlıyor
 axios.interceptors.request.use(
   function (config) {
@@ -71,7 +72,11 @@ export const postOrder = async (input) => {
   const { data } = await axios.post(
     `${process.env.REACT_APP_BASE_ENDPOINT}/order`,
     input
-  );
+    );
   return data;
-  console.log("data", data);
+};
+
+export const getOrders = async () => {
+  const { data } = await axios.get(`${process.env.REACT_APP_BASE_ENDPOINT}/order`);
+  return data;
 };

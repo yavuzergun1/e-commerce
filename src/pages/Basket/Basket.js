@@ -26,6 +26,7 @@ import { UseBasket } from "../../contexts/BasketContext";
 import "./basket.scss";
 import { postOrder } from "../../Data";
 import { useNavigate } from "react-router-dom";
+
 function Basket() {
   const { items, setItems, response } = UseBasket();
   const total = items.reduce((acc, curr) => acc + curr.price, 0);
@@ -62,7 +63,7 @@ function Basket() {
         isClosable: true,
       })
       setItems([]); /* Sparişten sonra sepetin içini boşaltır */
-      navigate("orderDetails") /* Spariş bilgi sayfasına yönlendirir */
+      // navigate("orderDetails") /* Spariş bilgi sayfasına yönlendirir */
     },
   });
  
