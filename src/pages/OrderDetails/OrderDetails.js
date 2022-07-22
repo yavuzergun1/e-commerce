@@ -1,9 +1,8 @@
-import { useFormikContext } from 'formik';
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { UseBasket } from '../../contexts/BasketContext';
 
 function OrderDetails() {
-  const {response} = useParams();
+  const {response} = UseBasket();
 
   console.log(response);
   return (

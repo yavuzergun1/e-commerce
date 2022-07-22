@@ -9,6 +9,7 @@ const defaultBasket = JSON.parse(localStorage.getItem("basket")) || [];
 const BasketProvider = ({ children }) => {
   const { isLogin } = UseAuth();
   const [items, setItems] = useState(defaultBasket);
+  const [response, setResponse] = useState();
   const toast = useToast();
   useEffect(() => {
     localStorage.setItem("basket", JSON.stringify(items));
@@ -20,27 +21,27 @@ const BasketProvider = ({ children }) => {
       const filtered = items.filter((item) => item._id !== isBasketItem._id);
       return setItems(filtered);
     }
-    if (isLogin) { /* ürün sepette değilse ve üye girişi yapılmışsa sepete ekle */
-      setItems((prev) => [ 
-        ...prev,
-        data,
-      ]); 
-    } else { /* üye girişi yapılmamışsa sepete ekleme ve uyarı ver */
+    if (isLogin) {
+      /* ürün sepette değilse ve üye girişi yapılmışsa sepete ekle */
+      setItems((prev) => [...prev, data]);
+    } else {
+      /* üye girişi yapılmamışsa sepete ekleme ve uyarı ver */
       toast({
-        position:"top",
-        title: 'Unable to Adding Basket',
+        position: "top",
+        title: "Unable to Adding Basket",
         description: "Please Login or Sign up",
-        status: 'warning',
+        status: "warning",
         duration: 5000,
         isClosable: true,
-      })
-    } 
+      });
+    }
   };
 
   const values = {
     items,
     setItems,
-   
+    response,
+    setResponse,
     addToBasket,
   };
   return (
