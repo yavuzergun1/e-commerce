@@ -55,7 +55,7 @@ function Basket() {
       // Spariş Başarılı Mesajı:
       toast({
         position:"top",
-        title: 'Order Recieve',
+        title: 'Order Recieved',
         description: "Your Order Has Been Received Successfully",
         status: 'success',
         duration: 5000,
