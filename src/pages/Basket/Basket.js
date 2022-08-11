@@ -56,7 +56,7 @@ function Basket() {
       toast({
         position:"top",
         title: 'Order Recieved',
-        description: "Your Order Has Been Received Successfully",
+        description: "Order Has Been Received Successfully",
         status: 'success',
         duration: 5000,
         isClosable: true,
