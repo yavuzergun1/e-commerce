@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "../../components/Card/Card";
-import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Flex, Grid, Spinner } from "@chakra-ui/react";
 import { useInfiniteQuery } from "react-query";
 import { getProductList } from "../../Data";
 function Products() {
@@ -22,7 +22,11 @@ function Products() {
       return allGroups.length + 1;
     },
   });
-  if (status === "loading") return "Loading...";
+  if (status === "loading") return (
+    <Flex justifyContent="center" alignItems="center" height="100vh">
+      <Spinner size="xl"/>
+    </Flex>
+  );
   if (status === "error") return "An error has occurred: " + error.message;
 
   console.log(data);

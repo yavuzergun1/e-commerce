@@ -1,0 +1,23 @@
+.none{
+    display: none  !important;
+}
+.main-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.cards-container{
+    width: 80%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-wrap: wrap;
+
+}
+.card-container{
+    width: 30%;
+    min-width: 250px;
+    margin-top: 55px;
+}

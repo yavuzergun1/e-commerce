@@ -12,29 +12,28 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import validationSchema from "./Validations";
-import { postRegister } from "../../../Data";
-import {UseAuth} from "../../../contexts/AuthContext";
+import { postLogin } from "../../../Data";
+import { UseAuth } from "../../../contexts/AuthContext";
 
-function SignUp() {
-const {login} = UseAuth();
-const navigate = useNavigate();
+function Login() {
+  const { login } = UseAuth();
+  const navigate = useNavigate();
 
   const { handleSubmit, handleChange, values, errors, touched } = useFormik({
     initialValues: {
       email: "",
       password: "",
-      passwordConfirm: "",
     },
     validationSchema,
     onSubmit: async (values, bag) => {
       try {
-        const registerResponse = await postRegister({
+        const loginResponse = await postLogin({
           email: values.email,
           password: values.password,
         });
-        login(registerResponse)
-        console.log(registerResponse);
-        navigate("/products")
+        login(loginResponse);
+        console.log(loginResponse);
+        navigate("/products");
       } catch (error) {
         bag.setErrors({ general: error.response.data.message });
       }
@@ -45,7 +44,7 @@ const navigate = useNavigate();
       <Flex align="center" width="full" justifyContent="center">
         <Box pt={10}>
           <Box textAlign="center">
-            <Heading>Sign Up</Heading>
+            <Heading>Login</Heading>
           </Box>
           <Box my={5}>
             {errors.general && (
@@ -62,7 +61,6 @@ const navigate = useNavigate();
                   isInvalid={
                     touched.email && errors.email
                   } /* touched yazılmazsa forma tıklandığı anda hata verir */
-
                 />
               </FormControl>
               {touched.email && errors.email}
@@ -78,19 +76,9 @@ const navigate = useNavigate();
               </FormControl>
               {touched.password && errors.password}
 
-              <FormControl mt="4">
-                <FormLabel>Password Confirm</FormLabel>
-                <Input
-                  name="passwordConfirm"
-                  type="password"
-                  onChange={handleChange}
-                  isInvalid={touched.passwordConfirm && errors.passwordConfirm}
-                />
-              </FormControl>
-              {touched.passwordConfirm && errors.passwordConfirm}
 
               <Button mt="4" width="full" type="submit">
-                Sign Up
+                Login
               </Button>
             </form>
           </Box>
@@ -100,4 +88,4 @@ const navigate = useNavigate();
   );
 }
 
-export default SignUp;
+export default Login;
