@@ -44,7 +44,7 @@ function Login() {
       <Flex align="center" width="full" justifyContent="center">
         <Box pt={10}>
           <Box textAlign="center">
-            <Heading>Loginn</Heading>
+            <Heading>Login</Heading>
           </Box>
           <Box my={5}>
             {errors.general && (
