@@ -28,7 +28,7 @@ import { postOrder } from "../../Data";
 import { useNavigate } from "react-router-dom";
 
 function Basket() {
-  const { items, setItems, setResponse, response } = UseBasket();
+  const { items, setItems, setResponse } = UseBasket();
   const total = items.reduce((acc, curr) => acc + curr.price, 0);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
