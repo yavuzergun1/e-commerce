@@ -29,6 +29,7 @@ export const getProductList = async ({ pageParam = 0 }) => {
 };
 
 export const getProduct = async (id) => {
+  console.log("id",id);
   const { data } = await axios.get(
     `${process.env.REACT_APP_BASE_ENDPOINT}/product/${id}`
   );
