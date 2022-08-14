@@ -62,7 +62,7 @@ function Basket() {
         isClosable: true,
       })
       setItems([]); /* Sparişten sonra sepetin içini boşaltır */
-      navigate("orderDetails") /* Spariş bilgi sayfasına yönlendirir */
+      navigate("/orderDetails") /* Spariş bilgi sayfasına yönlendirir */
     },
   });
   console.log("items", items);

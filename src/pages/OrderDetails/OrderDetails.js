@@ -6,7 +6,13 @@ function OrderDetails() {
 
   console.log(response);
   return (
+    <div>
+
+    
     <div>Your Order Details</div>
+    <div>Adress 
+      {response.address} </div>
+      </div>
   )
 }
 
