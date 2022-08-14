@@ -6,7 +6,7 @@ function OrderDetails() {
 
   console.log(response);
   return (
-    <div>OrderDetails</div>
+    <div>Your Order Details</div>
   )
 }
 
