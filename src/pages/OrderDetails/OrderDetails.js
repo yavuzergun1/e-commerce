@@ -7,10 +7,10 @@ import { getProduct } from '../../Data';
 function OrderDetails() {
   const {response} = UseBasket();
   console.log("response", response);
-  console.log("response id",  response.items[0]);
+response.items.map(item => console.log("item id",item))
 
-  const { isLoading, isError, data } = useQuery(["orderId", response.items[0]], () =>
- getProduct(response.items[0])
+  const { isLoading, isError, data } = useQuery("orderId", response.items.map((item) =>
+ getProduct(item))
   );
   console.log("data",data);
   if (isLoading) {
