@@ -26,8 +26,9 @@ import { UseBasket } from "../../contexts/BasketContext";
 import "./basket.scss";
 import { postOrder } from "../../Data";
 import { useNavigate } from "react-router-dom";
+
 function Basket() {
-  const { items, setItems, response } = UseBasket();
+  const { items, setItems, setResponse } = UseBasket();
   const total = items.reduce((acc, curr) => acc + curr.price, 0);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
@@ -47,25 +48,23 @@ function Basket() {
         address /* backendde karşılığı olmadığı için name ve phone verileri dahil edilmedi */,
         items: JSON.stringify(itemIds),
       };
-      const response = await postOrder(input);
-
-      console.log("response", response);
+     const res = await postOrder(input);
+      setResponse(res)
 
       onClose(); /* Modal'ı kapatır */
       // Spariş Başarılı Mesajı:
       toast({
         position:"top",
         title: 'Order Recieved',
-        description: "Your Order Has Been Received Successfully",
+        description: "Order Has Been Received Successfully",
         status: 'success',
         duration: 5000,
         isClosable: true,
       })
       setItems([]); /* Sparişten sonra sepetin içini boşaltır */
-      navigate("orderDetails") /* Spariş bilgi sayfasına yönlendirir */
+      navigate("/orderDetails") /* Spariş bilgi sayfasına yönlendirir */
     },
   });
- 
   console.log("items", items);
   return (
     <div>

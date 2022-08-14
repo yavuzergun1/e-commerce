@@ -29,7 +29,7 @@ function App() {
           <Route path="products" element={<Products />} />
           <Route path="product/:product_id" element={<ProductDetails />} />
           <Route path="basket" element={<Basket />} />
-          <Route path="basket/orderDetails" element={<OrderDetails />} />
+          <Route path="orderDetails" element={<OrderDetails />} />
           <Route path="*" element={<Error404 />} />
           {/* login yapmadan profile sayfasına giriş yetkisi vermez */}
           <Route

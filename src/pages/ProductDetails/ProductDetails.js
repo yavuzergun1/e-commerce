@@ -14,11 +14,12 @@ import { UseAuth } from "../../contexts/AuthContext";
 function ProductDetails() {
   const { product_id } = useParams();
   const {isLogin} = UseAuth();
-  const { items, setItems, addToBasket } = UseBasket();
-
+  const { items, addToBasket } = UseBasket();
+console.log("product id",product_id);
   const { isLoading, isError, data } = useQuery(["product", product_id], () =>
     getProduct(product_id)
-  );
+    );
+    console.log("data",data)
   if (isLoading) {
     return (
       <Flex justifyContent="center" alignItems="center" height="100vh">
