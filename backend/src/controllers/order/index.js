@@ -18,7 +18,7 @@ const Create = async (req, res, next) => {
     const order = new Order({
       user: user_id,
       phone: input.phone,
-      adress: input.address,
+      address: input.address,
       items: input.items,
     });
 
