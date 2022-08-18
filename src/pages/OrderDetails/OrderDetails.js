@@ -1,10 +1,7 @@
 import React from "react";
 import { UseBasket } from "../../contexts/BasketContext";
-import { useEffect } from "react";
-import { useQuery } from "react-query";
-import { Flex, Spinner } from "@chakra-ui/react";
-import { getProduct } from "../../Data";
 import GetOrderDetails from "../../components/getProductIdByUseQuery/GetOrderDetails";
+import "./orderDetails.scss";
 
 function OrderDetails() {
   const { response, orderTotal } = UseBasket();
@@ -13,14 +10,15 @@ function OrderDetails() {
 
   return (
     <div>
-      <div>Your Order Details</div>
-      <div>
-        Adress
-        <br />
-        {response.address}
-        <br />
-        Total Order Price : {orderTotal}TL
+      <div className="order-container">
+        <h2>Your Order Details</h2>
+        <div>
+          Address: {response.address}
+          <br />
+          Total Order Price : {orderTotal}TL
+        </div>
       </div>
+
       <div className="main-container">
         <div className="cards-container">
           {response.items.map((item) => (
