@@ -32,7 +32,6 @@ return <div>Error.</div>;
         </Box>
       </Link>
       <Box p="6"></Box>
-   
     </Box>
      
   )

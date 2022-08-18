@@ -10,6 +10,7 @@ const BasketProvider = ({ children }) => {
   const { isLogin } = UseAuth();
   const [items, setItems] = useState(defaultBasket);
   const [response, setResponse] = useState();
+  const [orderTotal, setOrderTotal]= useState();
   const toast = useToast();
   useEffect(() => {
     localStorage.setItem("basket", JSON.stringify(items));
@@ -43,7 +44,10 @@ const BasketProvider = ({ children }) => {
     response,
     setResponse,
     addToBasket,
+    orderTotal,
+    setOrderTotal
   };
+  console.log(orderTotal);
   return (
     <BasketContext.Provider value={values}>{children}</BasketContext.Provider>
   );
