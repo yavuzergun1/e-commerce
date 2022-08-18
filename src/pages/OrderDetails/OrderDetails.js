@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useQuery } from "react-query";
 import { Flex, Spinner } from "@chakra-ui/react";
 import { getProduct } from "../../Data";
-import GetProductIdByUseQuery from "../../components/getProductIdByUseQuery/GetProductIdByUseQuery";
+import GetOrderDetails from "../../components/getProductIdByUseQuery/GetOrderDetails";
 
 
 function OrderDetails() {
@@ -19,7 +19,19 @@ function OrderDetails() {
         <br />
         {response.address}
       </div>
-     { response.items.map((item) => <GetProductIdByUseQuery item={item} /> )}
+      <div className="main-container">
+        <div className="cards-container">
+          {response.items.map((item) => (
+            <React.Fragment key={item._id}>
+              <div className="card-container">
+                <GetOrderDetails item={item} />
+              </div>
+            </React.Fragment>
+          ))}
+          {/* </Grid> */}
+        </div>
+     {/* { response.items.map((item) => <GetProductIdByUseQuery item={item} /> )} */}
+    </div>
     </div>
   );
 }
