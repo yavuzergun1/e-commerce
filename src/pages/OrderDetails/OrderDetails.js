@@ -1,25 +1,37 @@
 import React from "react";
 import { UseBasket } from "../../contexts/BasketContext";
-import { useEffect } from "react";
-import { useQuery } from "react-query";
-import { Flex, Spinner } from "@chakra-ui/react";
-import { getProduct } from "../../Data";
-import GetProductIdByUseQuery from "../../components/getProductIdByUseQuery/GetProductIdByUseQuery";
-
+import GetOrderDetails from "../../components/getProductIdByUseQuery/GetOrderDetails";
+import "./orderDetails.scss";
 
 function OrderDetails() {
-  const { response } = UseBasket();
+  const { response, orderTotal } = UseBasket();
+  // const total = items.reduce((acc, curr) => acc + curr.price, 0);
   console.log("response", response);
 
   return (
     <div>
-      <div>Your Order Details</div>
-      <div>
-        Adress
-        <br />
-        {response.address}
+      <div className="order-container">
+        <h2>Your Order Details</h2>
+        <div>
+          Address: {response.address}
+          <br />
+          Total Order Price : {orderTotal}TL
+        </div>
+      
+{/* Spariş verilen ürünlerin resimleri burada gösterilecek */}
+      <div className="main-container">
+        <div className="cards-container">
+          {response.items.map((item) => (
+            <React.Fragment key={item._id}>
+              <div className="card-container">
+                {/* UseQuery map içinde kullanılamadığından dolayı component içine alındı ve item değişkeni componente gönderildi */}
+                <GetOrderDetails item={item} />
+              </div>
+            </React.Fragment>
+          ))}
+        </div>
       </div>
-     { response.items.map((item) => <GetProductIdByUseQuery item={item} /> )}
+      </div>
     </div>
   );
 }
