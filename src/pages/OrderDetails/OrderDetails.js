@@ -17,8 +17,8 @@ function OrderDetails() {
           <br />
           Total Order Price : {orderTotal}TL
         </div>
-      </div>
-
+      
+{/* Spariş verilen ürünlerin resimleri burada gösterilecek */}
       <div className="main-container">
         <div className="cards-container">
           {response.items.map((item) => (
@@ -30,6 +30,7 @@ function OrderDetails() {
             </React.Fragment>
           ))}
         </div>
+      </div>
       </div>
     </div>
   );

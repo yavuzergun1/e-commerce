@@ -19,7 +19,7 @@ if (isError) {
 return <div>Error.</div>;
 }
   return (
-    <Box borderWidth="1px" borderRadius="5" p="3" overflow="hidden">
+    <Box mr={2}   overflow="hidden">
       
       <Link to={`/product/${data._id}`}>
         <Image src={data.photos[0]} alt="product" loading="lazy" />

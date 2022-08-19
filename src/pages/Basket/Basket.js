@@ -19,8 +19,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React from "react";
-import { useState } from "react";
-import { useFormik, useFormikContext } from "formik";
+import { useFormik} from "formik";
 import Card from "../../components/Card/Card";
 import { UseBasket } from "../../contexts/BasketContext";
 import "./basket.scss";
@@ -49,8 +48,8 @@ function Basket() {
         items: JSON.stringify(itemIds),
       };
       const res = await postOrder(input);
-      setResponse(res);
-      setOrderTotal(total);
+      setResponse(res); /* geri dönen response verisini tanımlandı */
+      setOrderTotal(total); /* sparişin toplam tutarını orderDetails'a göndermek üzere tanımlandı */
       onClose(); /* Modal'ı kapatır */
       // Spariş Başarılı Mesajı:
       toast({
@@ -58,7 +57,7 @@ function Basket() {
         title: "Order Recieved",
         description: "Order Has Been Received Successfully",
         status: "success",
-        duration: 5000,
+        // duration: 5000,
         isClosable: true,
       });
       setItems([]); /* Sparişten sonra sepetin içini boşaltır */
