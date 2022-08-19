@@ -19,8 +19,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React from "react";
-import { useState } from "react";
-import { useFormik, useFormikContext } from "formik";
+import { useFormik} from "formik";
 import Card from "../../components/Card/Card";
 import { UseBasket } from "../../contexts/BasketContext";
 import "./basket.scss";
@@ -28,14 +27,14 @@ import { postOrder } from "../../Data";
 import { useNavigate } from "react-router-dom";
 
 function Basket() {
-  const { items, setItems, setResponse } = UseBasket();
+  const { items, setItems, setResponse, setOrderTotal } = UseBasket();
   const total = items.reduce((acc, curr) => acc + curr.price, 0);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
   const toast = useToast();
-  const navigate = useNavigate()
-  
-  const { handleSubmit, handleChange} = useFormik({
+  const navigate = useNavigate();
+
+  const { handleSubmit, handleChange } = useFormik({
     initialValues: {
       name: "",
       phone: "",
@@ -48,21 +47,21 @@ function Basket() {
         address /* backendde karşılığı olmadığı için name ve phone verileri dahil edilmedi */,
         items: JSON.stringify(itemIds),
       };
-     const res = await postOrder(input);
-      setResponse(res)
-
+      const res = await postOrder(input);
+      setResponse(res); /* geri dönen response verisini tanımlandı */
+      setOrderTotal(total); /* sparişin toplam tutarını orderDetails'a göndermek üzere tanımlandı */
       onClose(); /* Modal'ı kapatır */
       // Spariş Başarılı Mesajı:
       toast({
-        position:"top",
-        title: 'Order Recieved',
+        position: "top",
+        title: "Order Recieved",
         description: "Order Has Been Received Successfully",
-        status: 'success',
-        duration: 5000,
+        status: "success",
+        // duration: 5000,
         isClosable: true,
-      })
+      });
       setItems([]); /* Sparişten sonra sepetin içini boşaltır */
-      navigate("/orderDetails") /* Spariş bilgi sayfasına yönlendirir */
+      navigate("/orderDetails"); /* Spariş bilgi sayfasına yönlendirir */
     },
   });
   console.log("items", items);
@@ -82,14 +81,19 @@ function Basket() {
               </div>
             </React.Fragment>
           ))}
-          {/* </Grid> */}
         </div>
         <Box w="120" mt="12" mr="5">
           <Text textAlign="left" fontSize="25">
             {total > 0 && `Total=${total}TL`}
           </Text>
-            {/* className: sepet boşsa order butonunu gösterme */}
-          <Button className={items.length < 1 && "none"} mt="2" size="sm" colorScheme="green" onClick={onOpen}>
+          {/* className: sepet boşsa order butonunu gösterme */}
+          <Button
+            className={items.length < 1 && "none"}
+            mt="2"
+            size="sm"
+            colorScheme="green"
+            onClick={onOpen}
+          >
             Order Now
           </Button>
         </Box>
