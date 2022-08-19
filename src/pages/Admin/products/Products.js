@@ -1,14 +1,8 @@
 import { useMemo } from "react";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-} from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useState } from "react";
 import { getProductList, deleteProduct } from "../../../Data";
 import { Table, Popconfirm, message } from "antd";
-import { QuestionCircleOutlined } from "@ant-design/icons";
 import { Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
@@ -26,24 +20,27 @@ function Products() {
     return [
       {
         title: "Title",
-        dataIndex: "title",
+        dataIndex: "title", /* Burası data.title'ı temsil ediyor */
         key: "title",
       },
       {
         title: "Price",
-        dataIndex: "price",
+        dataIndex: "price", /* Burası data.price'ı temsil ediyor */
         key: "price",
       },
       {
         title: "createdAt",
-        dataIndex: "createdAt",
+        dataIndex: "createdAt",/* Burası data.createdAt'ı temsil ediyor */
         key: "createdAt",
       },
       {
         title: "Action",
         dataIndex: "action",
-        /* buton koyulacak yere render edilecek fonksiyon yazıldı */
-        render: (text, record) => (
+        /* ilgili satıra yazılan componentleri render eder */
+        render: (
+          text,
+          record /* ilgili satırın data verileri record içindedir. Veri record ile çekilir */
+        ) => (
           <>
             <Link to={`/admin/products/${record._id}`}>Edit</Link>
             <Popconfirm
@@ -52,16 +49,15 @@ function Products() {
               cancelText="No"
               onCancel={() => console.log("cancel")}
               onConfirm={() => {
-                deleteMutation.mutate(
-                  record._id, {
-                    onSuccess: () => {queryClient.invalidateQueries("admin:products")} /* delete işlemi başarılı olduktan sonra ilgili satırı kaldırıp kalan satırları gösterir. */
-                  }
-                ); /* ilgili satırdaki id'ye ait product'u siler */
+                deleteMutation.mutate(record._id, {
+                  onSuccess: () => {
+                    queryClient.invalidateQueries("admin:products");
+                  } /* delete işlemi başarılı olduktan sonra ilgili satırı kaldırıp kalan satırları gösterir. */,
+                }); /* ilgili satırdaki id'ye ait product'u siler */
                 setVisible(false); /* confirm olduğunda onay bölümünü kapatır */
                 message.success(
                   "Product Succesfully Deleted"
-                  ); /* confirm olduğunda yandaki mesajı gösterir */
-                
+                ); /* confirm olduğunda yandaki mesajı gösterir */
               }}
             >
               <a style={{ marginLeft: 10, color: "tomato" }} href="#">
