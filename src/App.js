@@ -17,7 +17,7 @@ import OrderDetails from "./pages/OrderDetails/OrderDetails";
 import { LoginPrivateRoutes } from "./pages/authorization/PrivateRoutes";
 import { AdminPrivateRoutes } from "./pages/authorization/PrivateRoutes";
 import Admin from "./pages/Admin/Admin";
-import ProductDetail from "./ProductDetail";
+import ProductDetail from "./pages/Admin/ProductDetail/ProductDetail";
 function App() {
   const { user } = UseAuth();
   return (

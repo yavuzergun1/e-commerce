@@ -1,7 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { getProduct } from "./Data";
+import { getProduct, updateProduct } from "../../../Data";
 import { useQuery } from "react-query";
+import { message } from "antd";
+import { DeleteFilled } from "@ant-design/icons";
 import {
   Spinner,
   Flex,
@@ -14,6 +16,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { Formik, FieldArray } from "formik";
+import validationSchema from "./Validations";
+
 function ProductDetail() {
   const { product_id } = useParams();
   const { isLoading, isError, data } = useQuery(["product", product_id], () =>
@@ -32,6 +36,22 @@ function ProductDetail() {
   }
   console.log(data);
 
+  const handleSubmit = async (values) => {
+    console.log("submitted");
+    message.loading({ content: "Loading...", key: "product-update" });
+
+    try {
+      await updateProduct(values, product_id);
+      message.success({
+        content: "product successfuly updated!",
+        key: "product-update",
+        duration: 2,
+      });
+    } catch (e) {
+      message.error("Product could not updated");
+    }
+  };
+
   return (
     <div>
       <Text ml={5} fontSize={25}>
@@ -45,8 +65,10 @@ function ProductDetail() {
           price: data.price,
           photos: data.photos,
         }}
-        // validationSchema
-        // onSubmit={handleSubmit}
+        validationSchema={
+          validationSchema
+        } /* useFormik kullanılmadığı için validationSchema direk yazılmadı. */
+        onSubmit={handleSubmit}
       >
         {({
           handleSubmit,
@@ -69,7 +91,12 @@ function ProductDetail() {
                       onBlur={handleBlur}
                       value={values.title}
                       disabled={isSubmitting}
-                    ></Input>
+                      isInvalid={touched.title && errors.title}
+                    />
+
+                    {touched.title && errors.title && (
+                      <Text>{errors.title} </Text>
+                    )}
                   </FormControl>
                   <FormControl>
                     <FormLabel mt={5}>Description</FormLabel>
@@ -80,17 +107,26 @@ function ProductDetail() {
                       onBlur={handleBlur}
                       value={values.description}
                       disabled={isSubmitting}
+                      isInvalid={touched.description && errors.description}
                     ></Textarea>
+                    {touched.description && errors.description && (
+                      <Text>{errors.description} </Text>
+                    )}
                   </FormControl>
                   <FormControl>
                     <FormLabel mt={5}>Price</FormLabel>
                     <Input
-                      name="description"
+                      name="price"
+                      type="number"
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.price}
                       disabled={isSubmitting}
-                    ></Input>
+                      isInvalid={touched.price && errors.price}
+                    />
+                    {touched.price && errors.price && (
+                      <Text>{errors.price} </Text>
+                    )}
                   </FormControl>
                   <FormControl>
                     <FormLabel mt={5}>Photos</FormLabel>
@@ -117,7 +153,15 @@ function ProductDetail() {
                                     size="sm"
                                     ml={3}
                                     colorScheme="red"
-                                    onClick={() => arrayHelpers.remove(index)}
+                                    onClick={() => {
+                                      arrayHelpers.remove(index);
+                                      message.error({
+                                        content: "Photo Deleted",
+                                        key: "product-update",
+                                        duration: 2,
+                                        icon:<DeleteFilled />
+                                      });
+                                      }}
                                   >
                                     Delete
                                   </Button>
@@ -139,6 +183,14 @@ function ProductDetail() {
                       )}
                     ></FieldArray>
                   </FormControl>
+                  <Button
+                    mt={4}
+                    width="full"
+                    type="submit"
+                    isLoading={isSubmitting}
+                  >
+                    Update
+                  </Button>
                 </form>
               </Box>
             </Box>

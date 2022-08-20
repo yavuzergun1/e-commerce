@@ -6,6 +6,7 @@ import { Spinner, Flex } from "@chakra-ui/react";
 import { Table, Popconfirm, message } from "antd";
 import { Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { DeleteFilled } from "@ant-design/icons";
 
 function Products() {
   const queryClient = useQueryClient();
@@ -56,9 +57,12 @@ function Products() {
                   } /* delete işlemi başarılı olduktan sonra ilgili satırı kaldırıp kalan satırları gösterir. */,
                 }); /* ilgili satırdaki id'ye ait product'u siler */
                 setVisible(false); /* confirm olduğunda onay bölümünü kapatır */
-                message.success(
-                  "Product Succesfully Deleted"
-                ); /* confirm olduğunda yandaki mesajı gösterir */
+                message.error({
+                  content: "Product Deleted",
+                  key: "product-update",
+                  duration: 2,
+                  icon:<DeleteFilled />
+                }); /* confirm olduğunda yandaki mesajı gösterir */
               }}
             >
               <a style={{ marginLeft: 10, color: "tomato" }} href="#">
