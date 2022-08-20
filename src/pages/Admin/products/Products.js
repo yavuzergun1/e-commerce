@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useState } from "react";
 import { getProductList, deleteProduct } from "../../../Data";
+import { Spinner, Flex } from "@chakra-ui/react";
 import { Table, Popconfirm, message } from "antd";
 import { Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
@@ -47,7 +48,7 @@ function Products() {
               title="Are you sure?"
               okText="Yes"
               cancelText="No"
-              onCancel={() => console.log("cancel")}
+              onCancel={() => console.log("canceled")}
               onConfirm={() => {
                 deleteMutation.mutate(record._id, {
                   onSuccess: () => {
@@ -71,7 +72,11 @@ function Products() {
   }, []);
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return <div>
+      <Flex justifyContent="center" alignItems="center" height="100vh">
+        <Spinner size="xl"/>
+      </Flex>
+    </div>;
   }
   if (isError) {
     return <div>Error {error.message}</div>;
