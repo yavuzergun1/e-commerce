@@ -18,6 +18,7 @@ import { LoginPrivateRoutes } from "./pages/authorization/PrivateRoutes";
 import { AdminPrivateRoutes } from "./pages/authorization/PrivateRoutes";
 import Admin from "./pages/Admin/Admin";
 import ProductDetail from "./pages/Admin/ProductDetail/ProductDetail";
+import AddProduct from "./pages/Admin/AddProduct/AddProduct";
 function App() {
   const { user } = UseAuth();
   return (
@@ -54,6 +55,7 @@ function App() {
           <Route path="/admin/home" element={<AdminHome />} />
           <Route path="/admin/orders" element={<Orders />} />
           <Route path="/admin/products" element={<AdminProducts />} />
+          <Route path="/admin/products/add" element={<AddProduct/>} />
           <Route path="/admin/products/:product_id" element={<ProductDetail />} />
           </Route>
         </Route>
