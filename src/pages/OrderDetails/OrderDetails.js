@@ -1,6 +1,6 @@
 import React from "react";
 import { UseBasket } from "../../contexts/BasketContext";
-import GetOrderDetails from "../../components/getProductIdByUseQuery/GetOrderDetails";
+import GetOrderDetails from "../../components/getOrderDetails/GetOrderDetails";
 import "./orderDetails.scss";
 
 function OrderDetails() {
