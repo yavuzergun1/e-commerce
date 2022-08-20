@@ -2,9 +2,8 @@ import { useMemo } from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useState } from "react";
 import { getProductList, deleteProduct } from "../../../Data";
-import { Spinner, Flex } from "@chakra-ui/react";
 import { Table, Popconfirm, message } from "antd";
-import { Text } from "@chakra-ui/react";
+import { Text, Button, Spinner, Flex } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { DeleteFilled } from "@ant-design/icons";
 
@@ -22,17 +21,17 @@ function Products() {
     return [
       {
         title: "Title",
-        dataIndex: "title", /* Burası data.title'ı temsil ediyor */
+        dataIndex: "title" /* Burası data.title'ı temsil ediyor */,
         key: "title",
       },
       {
         title: "Price",
-        dataIndex: "price", /* Burası data.price'ı temsil ediyor */
+        dataIndex: "price" /* Burası data.price'ı temsil ediyor */,
         key: "price",
       },
       {
         title: "createdAt",
-        dataIndex: "createdAt",/* Burası data.createdAt'ı temsil ediyor */
+        dataIndex: "createdAt" /* Burası data.createdAt'ı temsil ediyor */,
         key: "createdAt",
       },
       {
@@ -61,7 +60,7 @@ function Products() {
                   content: "Product Deleted",
                   key: "product-update",
                   duration: 2,
-                  icon:<DeleteFilled />
+                  icon: <DeleteFilled />,
                 }); /* confirm olduğunda yandaki mesajı gösterir */
               }}
             >
@@ -76,11 +75,13 @@ function Products() {
   }, []);
 
   if (isLoading) {
-    return <div>
-      <Flex justifyContent="center" alignItems="center" height="100vh">
-        <Spinner size="xl"/>
-      </Flex>
-    </div>;
+    return (
+      <div>
+        <Flex justifyContent="center" alignItems="center" height="100vh">
+          <Spinner size="xl" />
+        </Flex>
+      </div>
+    );
   }
   if (isError) {
     return <div>Error {error.message}</div>;
@@ -89,9 +90,15 @@ function Products() {
 
   return (
     <div>
-      <Text fontSize={20} p="5">
-        Products
-      </Text>
+      <Flex justify="space-between" align="center">
+        <Text fontSize={20} p="5">
+          Products
+        </Text>
+
+        <Link to={"add"}>
+          <Button>Add Product</Button>
+        </Link>
+      </Flex>
       <Table dataSource={data} columns={columns} rowKey="_id" />;
     </div>
   );
