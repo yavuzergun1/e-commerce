@@ -26,22 +26,29 @@ function AddProduct() {
   const handleSubmit = async (values, bag) => {
     console.log(values);
     message.loading({ content: "Loading...", key: "product-update" });
+    
+    // values.photos = JSON.stringify(values.photos)
 
-    newProductMutation.mutate( values, {
+    const newValues = {
+      ...values, 
+      photos:JSON.stringify(values.photos),
+    };
+
+    newProductMutation.mutate( newValues, {
       onSuccess: () => {
         console.log("success");
       }
     })
-    try {
-      await postProduct(values);
-      message.success({
-        content: "product successfuly updated!",
-        key: "product-update",
-        duration: 2,
-      });
-    } catch (e) {
-      message.error("Product could not updated");
-    }
+    // try {
+    //   await postProduct(values);
+    //   message.success({
+    //     content: "product successfuly updated!",
+    //     key: "product-update",
+    //     duration: 2,
+    //   });
+    // } catch (e) {
+    //   message.error("Product could not updated");
+    // }
   };
 
   return (
@@ -132,7 +139,7 @@ function AddProduct() {
                               <div key={index}>
                                 <Flex justify="space-between" mt={3}>
                                   <Input
-                                    name={`photos${index}`}
+                                    name={`photo${index}`}
                                     value={photo[index]}
                                     disabled={isSubmitting}
                                     onChange={handleChange}
