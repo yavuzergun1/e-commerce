@@ -47,17 +47,17 @@ function Home() {
   return (
     <div>
       <Carousel
-    swipeable={true}
+    swipeable={false}
     draggable={true}
-    showDots={false}
+    showDots={true}
     responsive={responsive}
     ssr={true} // means to render carousel on server-side.
     infinite={true}
     autoPlay={true}
-    autoPlaySpeed={1000}
+    autoPlaySpeed={3000}
     keyBoardControl={true}
-    customTransition="transform 3000ms ease-in-out"
-    transitionDuration={6000}
+    customTransition="transform 2000ms cubic-bezier(0.79,-0.3, 0.32, 1.20) "
+    transitionDuration={3000}
     containerClass="carousel-container"
     removeArrowOnDeviceType={["tablet", "mobile"]}
     // deviceType={this.props.deviceType}
