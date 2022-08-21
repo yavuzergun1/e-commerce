@@ -15,7 +15,9 @@ function Products() {
     getProductList
   );
   /* Silme işlemi mutation'a giriyor. bu sebeple useQuery yerine burada useMutation kullanılıyor */
-  const deleteMutation = useMutation(deleteProduct);
+  const deleteMutation = useMutation(deleteProduct, {
+   onSuccess: () => queryClient.invalidateQueries("admin:products") /* delete işlemi başarılı olduktan sonra ilgili satırı kaldırıp kalan satırları gösterir. */,
+  });
   /* Bu component her render edildiğinde columns yeniden hesaplanmaya çalışılacak. Bunu engellemek için useMemo kullanıldı. */
   const columns = useMemo(() => {
     return [
@@ -50,13 +52,13 @@ function Products() {
               cancelText="No"
               onCancel={() => console.log("canceled")}
               onConfirm={() => {
-                deleteMutation.mutate(record._id, {
+                deleteMutation.mutate(record._id, {/* ilgili satırdaki id'ye ait product'u siler */
                   onSuccess: () => {
-                    queryClient.invalidateQueries("admin:products");
-                  } /* delete işlemi başarılı olduktan sonra ilgili satırı kaldırıp kalan satırları gösterir. */,
-                }); /* ilgili satırdaki id'ye ait product'u siler */
+                    console.log("deleted");
+                  } 
+                }); 
                 setVisible(false); /* confirm olduğunda onay bölümünü kapatır */
-                message.error({
+                message.error({ /* burada kırmızı rengi kullanmak için error mesajı kullanıldı */
                   content: "Product Deleted",
                   key: "product-update",
                   duration: 2,
