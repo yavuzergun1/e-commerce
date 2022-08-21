@@ -140,7 +140,7 @@ function ProductDetail() {
                               <div key={index}>
                                 <Flex justify="space-between" mt={3}>
                                   <Input
-                                    name={`photos${index}`}
+                                    name={`photos.${index}`}
                                     value={photo}
                                     disabled={isSubmitting}
                                     onChange={handleChange}

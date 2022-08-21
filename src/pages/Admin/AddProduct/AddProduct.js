@@ -1,6 +1,7 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { postProduct } from "../../../Data";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, queryClient, useQueryClient } from "react-query";
 import { message } from "antd";
 import { DeleteFilled } from "@ant-design/icons";
 import {
@@ -18,51 +19,54 @@ import { Formik, FieldArray } from "formik";
 import validationSchema from "./Validations";
 
 function AddProduct() {
-  const queryClient = useQueryClient();
+const queryClient = useQueryClient()
+
   const newProductMutation = useMutation(postProduct, {
-    onSuccess: () => queryClient.invalidateQueries("admin:products"),
+    onSuccess: () => queryClient.invalidateQueries("admin:products") 
   });
-
+  
+  
+  
   const handleSubmit = async (values, bag) => {
-    console.log(values);
-    message.loading({ content: "Loading...", key: "product-update" });
+    message.loading({content: "Loading...", key:"product-update"});
     
-    // values.photos = JSON.stringify(values.photos)
-
     const newValues = {
-      ...values, 
-      photos:JSON.stringify(values.photos),
+      /* price'a validation'da numara girme zorunluğu getirildi. Ancak api sadece string ifade kabul ettiği için veri apiye gönderilmeden önce toString ile stringe çevirildi. photos ise bir dizi olduğundan dolayı yine onu da string'e çevirmek için JSON.stringify kullanıldı. */
+      ...values, price: values.price.toString(), photos: JSON.stringify(values.photos)
     };
 
-    newProductMutation.mutate( newValues, {
-      onSuccess: () => {
-        console.log("success");
-      }
-    })
-    // try {
-    //   await postProduct(values);
-    //   message.success({
-    //     content: "product successfuly updated!",
-    //     key: "product-update",
-    //     duration: 2,
-    //   });
-    // } catch (e) {
-    //   message.error("Product could not updated");
-    // }
+    newProductMutation.mutate(newValues, {
+  
+    onSuccess: () => {
+      console.log("added");
+      message.success({ /* burada kırmızı rengi kullanmak için error mesajı kullanıldı */
+      content: "Product has been Successfully Added",
+      key: "product-update",
+      duration: 2,
+    });
+    }, 
+    onError: () => {
+      message.error({
+        content: "Product adding has been Failed",
+      key: "product-update",
+      duration: 2,
+      })
+    }
+  })
   };
 
   return (
     <div>
-      <Text ml={5} mt={10} fontSize={25}>
-        Add Product
+      <Text ml={5} fontSize={25}>
+        Edit
       </Text>
       {/* normalde useFormik kullanılarak da yapılabilir ancak yukarıda useQuery'den sonra kullanılınca hata veriyor. data verisine ihtiyaç olduğundan dolayı da useQuery'den önce kullanılamıyor. */}
       <Formik
         initialValues={{
-          title: "dfsdf",
-          description: "sdfsdfsds",
-          price: "232",
-          photos: "",
+          title: "",
+          description: "",
+          price: "",
+          photos:"",
         }}
         validationSchema={
           validationSchema
@@ -139,8 +143,8 @@ function AddProduct() {
                               <div key={index}>
                                 <Flex justify="space-between" mt={3}>
                                   <Input
-                                    name={`photo${index}`}
-                                    value={photo[index]}
+                                    name={`photos.${index}`}
+                                    value={photo}
                                     disabled={isSubmitting}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
@@ -158,9 +162,9 @@ function AddProduct() {
                                         content: "Photo Deleted",
                                         key: "product-update",
                                         duration: 2,
-                                        icon: <DeleteFilled />,
+                                        icon:<DeleteFilled />
                                       });
-                                    }}
+                                      }}
                                   >
                                     Delete
                                   </Button>
@@ -186,10 +190,9 @@ function AddProduct() {
                     mt={4}
                     width="full"
                     type="submit"
-                    colorScheme="green"
                     isLoading={isSubmitting}
                   >
-                    Save
+                    Update
                   </Button>
                 </form>
               </Box>
