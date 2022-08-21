@@ -5,7 +5,6 @@ import { Spinner, Flex } from '@chakra-ui/react';
 import Card from "../../components/Card/Card"
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { Loading3QuartersOutlined } from '@ant-design/icons';
 
 function Home() {
 
@@ -26,22 +25,24 @@ function Home() {
 
   const responsive = {
     desktop: {
-      breakpoint: { max: 3000, min: 1024 },
+      breakpoint: { max: 3000, min: 1124 },
       items: 4,
       slidesToSlide: 2 // optional, default to 1.
     },
     tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
+      breakpoint: { max: 1124, min: 874 },
+      items: 3,
       slidesToSlide: 2 // optional, default to 1.
+      
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-      slidesToSlide: 1 // optional, default to 1.
+      breakpoint: { max: 874, min: 0 },
+      items: 2,
+      slidesToSlide: 2, // optional, default to 1.
+      customTransition:"transform 5000ms cubic-bezier(0.79,-0.3, 0.32, 1.20) "
     }
   };
-  console.log(data);
+  console.log(responsive.deviceTipe);
 
 
   return (
@@ -50,13 +51,16 @@ function Home() {
     swipeable={false}
     draggable={true}
     showDots={true}
+    shouldResetAutoplay={true}
     responsive={responsive}
     ssr={true} // means to render carousel on server-side.
     infinite={true}
+    rewind={true}
+    rewindWithAnimation={true}
     autoPlay={true}
     autoPlaySpeed={3000}
     keyBoardControl={true}
-    customTransition="transform 2000ms cubic-bezier(0.79,-0.3, 0.32, 1.20) "
+    customTransition="transform 3000ms cubic-bezier(0.79,-0.3, 0.32, 1.20) "
     transitionDuration={3000}
     containerClass="carousel-container"
     removeArrowOnDeviceType={["tablet", "mobile"]}
