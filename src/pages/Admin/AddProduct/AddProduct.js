@@ -20,18 +20,38 @@ import validationSchema from "./Validations";
 
 function AddProduct() {
 const queryClient = useQueryClient()
+
   const newProductMutation = useMutation(postProduct, {
     onSuccess: () => queryClient.invalidateQueries("admin:products") 
-   });
-  const handleSubmit = async (values) => {
+  });
+  
+  
+  
+  const handleSubmit = async (values, bag) => {
+    message.loading({content: "Loading...", key:"product-update"});
+    
     const newValues = {
-      ...values, photos: JSON.stringify(values.photos)
-    }
+      /* price'a validation'da numara girme zorunluğu getirildi. Ancak api sadece string ifade kabul ettiği için veri apiye gönderilmeden önce toString ile stringe çevirildi. photos ise bir dizi olduğundan dolayı yine onu da string'e çevirmek için JSON.stringify kullanıldı. */
+      ...values, price: values.price.toString(), photos: JSON.stringify(values.photos)
+    };
 
     newProductMutation.mutate(newValues, {
+  
     onSuccess: () => {
       console.log("added");
-    } 
+      message.success({ /* burada kırmızı rengi kullanmak için error mesajı kullanıldı */
+      content: "Product has been Successfully Added",
+      key: "product-update",
+      duration: 2,
+    });
+    }, 
+    onError: () => {
+      message.error({
+        content: "Product adding has been Failed",
+      key: "product-update",
+      duration: 2,
+      })
+    }
   })
   };
 
@@ -100,6 +120,7 @@ const queryClient = useQueryClient()
                     <FormLabel mt={5}>Price</FormLabel>
                     <Input
                       name="price"
+                      type="number"
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.price}
