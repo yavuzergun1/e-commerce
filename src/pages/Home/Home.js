@@ -60,7 +60,7 @@ function Home() {
     autoPlay={true}
     autoPlaySpeed={3000}
     keyBoardControl={true}
-    customTransition="transform 3000ms cubic-bezier(0.79,-0.3, 0.32, 1.20) "
+    customTransition="transform 000ms cubic-bezier(0.79,-0.3, 0.32, 1.20) "
     transitionDuration={3000}
     containerClass="carousel-container"
     removeArrowOnDeviceType={["tablet", "mobile"]}
