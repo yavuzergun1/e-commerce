@@ -49,7 +49,7 @@ function Home() {
     <div>
       <Carousel
     swipeable={false}
-    draggable={true}
+    draggable={false}
     showDots={true}
     shouldResetAutoplay={true}
     responsive={responsive}
