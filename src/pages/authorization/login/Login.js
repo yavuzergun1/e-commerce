@@ -51,7 +51,7 @@ function Login() {
               <Alert backgroundColor="pink">{errors.general}</Alert>
             )}
           </Box>
-          <Box my={5} textAlign="left">
+          <Box my={5} textAlign="center">
             <form onSubmit={handleSubmit}>
               <FormControl>
                 <FormLabel>E-mail</FormLabel>

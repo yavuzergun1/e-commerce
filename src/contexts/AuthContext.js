@@ -13,7 +13,6 @@ const AuthProvider = ({ children }) => {
     (async () => {
       try {
         const me = await fetchMe();
-        console.log("me", me);
         setIsLogin(true);
         setUser(me);
         setIsLoading(false);
@@ -22,7 +21,8 @@ const AuthProvider = ({ children }) => {
       }
     })();
   }, []);
-
+  
+  console.log("me", user);
   // useEffect(async() => {
   //   const me =await fetchMe();
   //   console.log("me", me);
