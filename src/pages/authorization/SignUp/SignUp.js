@@ -9,15 +9,17 @@ import {
   Button,
   Alert,
 } from "@chakra-ui/react";
+import GoogleButton from "react-google-button";
+import { signInWithGooglePopup, createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../../FirebaseUtils";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import validationSchema from "./Validations";
 import { postRegister } from "../../../Data";
-import {UseAuth} from "../../../contexts/AuthContext";
+import { UseAuth } from "../../../contexts/AuthContext";
 
 function SignUp() {
-const {login} = UseAuth();
-const navigate = useNavigate();
+  const { login } = UseAuth();
+  const navigate = useNavigate();
 
   const { handleSubmit, handleChange, values, errors, touched } = useFormik({
     initialValues: {
@@ -26,20 +28,46 @@ const navigate = useNavigate();
       passwordConfirm: "",
     },
     validationSchema,
+    // LOGIN WITH FIREBASE
     onSubmit: async (values, bag) => {
       try {
-        const registerResponse = await postRegister({
+        const { user } = await createAuthUserWithEmailAndPassword({
           email: values.email,
           password: values.password,
         });
-        login(registerResponse)
-        console.log(registerResponse);
-        navigate("/products")
+        console.log("user",user);
+
+        await createUserDocumentFromAuth(user);
       } catch (error) {
-        bag.setErrors({ general: error.response.data.message });
+        if (error.code === "auth/email-already-in-use") {
+          alert("Cannot create user, email already in use");
+        } else {
+          console.log("user creation encountered an error", error);
+        }
       }
     },
+
+    //LOGIN WITH BACKEND
+    // onSubmit:
+    //   async (values, bag) => {
+    //   try {
+    //     const registerResponse = await postRegister({
+    //       email: values.email,
+    //       password: values.password,
+    //     });
+    //     login(registerResponse)
+    //     console.log(registerResponse);
+    //     navigate("/products")
+    //   } catch (error) {
+    //     bag.setErrors({ general: error.response.data.message });
+    //   }
+    // },
   });
+
+  const signInWithGoogle = async () => {
+    await signInWithGooglePopup();
+  };
+
   return (
     <div>
       <Flex align="center" width="full" justifyContent="center">
@@ -62,7 +90,6 @@ const navigate = useNavigate();
                   isInvalid={
                     touched.email && errors.email
                   } /* touched yazılmazsa forma tıklandığı anda hata verir */
-
                 />
               </FormControl>
               {touched.email && errors.email}
@@ -92,6 +119,11 @@ const navigate = useNavigate();
               <Button mt="4" width="full" type="submit">
                 Sign Up
               </Button>
+
+              <GoogleButton
+                style={{ marginTop: "25px" }}
+                onClick={signInWithGoogle}
+              />
             </form>
           </Box>
         </Box>
