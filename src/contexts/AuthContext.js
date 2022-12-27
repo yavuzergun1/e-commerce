@@ -23,11 +23,10 @@ const AuthProvider = ({ children }) => {
       }
       // eğer user yoksa da direk curretn user'ı atar
       setCurrentUser(user);
-      console.log(user);
+      console.log("User",user);
     });
     return unsubscribe;
   }, []);
-  console.log("Curren User", currentUser);
 
 
   // WATCHING WITH BACKEND

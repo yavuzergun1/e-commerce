@@ -40,6 +40,7 @@ function Login() {
 
     try {
       await signInAuthUserWithEmailAndPassword(values.email, values.password);
+      navigate("/products")
     } catch (error) {
       switch (error.code) {
         case "auth/wrong-password":

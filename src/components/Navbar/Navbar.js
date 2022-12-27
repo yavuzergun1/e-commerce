@@ -10,7 +10,6 @@ function Navbar() {
   const { currentUser } = UseAuth();
   const { items } = UseBasket();
 
-  console.log(items);
 
   return (
     <div>

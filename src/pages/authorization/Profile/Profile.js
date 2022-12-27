@@ -9,9 +9,7 @@ import { UseBasket } from "../../../contexts/BasketContext";
 function Profile() {
   const { user, setIsLogin, isLogin, setUser } = UseAuth();
   const { setItems } = UseBasket();
-  // const handleLogout = async() => {
-  //   logout()
-  // }
+
 
   let navigate = useNavigate();
 
