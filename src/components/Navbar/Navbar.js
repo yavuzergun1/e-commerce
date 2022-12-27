@@ -6,10 +6,11 @@ import { UseAuth } from "../../contexts/AuthContext";
 import { UseBasket } from "../../contexts/BasketContext";
 
 function Navbar() {
-  const { isLogin, user } = UseAuth();
-  const {items} = UseBasket();
+  // const { isLogin, user } = UseAuth();
+  const { currentUser } = UseAuth( );
+  const { items } = UseBasket();
 
-console.log(items);
+  console.log(items);
 
   return (
     <div>
@@ -39,28 +40,26 @@ console.log(items);
 
           {isLogin && (
             <>
+              {items.length > 0 && (
+                <Link to="/basket">
+                  <Button colorScheme="facebook" variant="outline">
+                    {" "}
+                    Basket: {items.length} item{" "}
+                  </Button>
+                </Link>
+              )}
 
-{items.length > 0 && (
-  <Link to="/basket">
-    <Button colorScheme="facebook" variant="outline" > Basket: {items.length} item </Button>
-  </Link>
-)}
+              {user?.role === "admin" && (
+                <Link to="/admin">
+                  <Button colorScheme="blue">admin</Button>
+                </Link>
+              )}
 
-{
-  user?.role ==='admin' && (
-    <Link to="/admin">
-    <Button colorScheme="blue">admin</Button>
-    </Link>
-  )
-}
-
-            <Link to="/profile" className="profile">
+              <Link to="/profile" className="profile">
                 <Button colorScheme="blue">Profile</Button>
               </Link>
             </>
-          )
-
-          }
+          )}
         </div>
       </nav>
       <Outlet />
