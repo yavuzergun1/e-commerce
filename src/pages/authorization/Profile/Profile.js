@@ -1,6 +1,7 @@
 import { Button, Heading } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
+import { signOutUser } from "../../../FirebaseUtils";
 import { UseAuth } from "../../../contexts/AuthContext";
 import { postLogout } from "../../../Data";
 import { UseBasket } from "../../../contexts/BasketContext";
@@ -34,7 +35,7 @@ function Profile() {
       <br />
       <br />
 
-      <Button colorScheme="blue" variant="solid" onClick={logout}>
+      <Button colorScheme="blue" variant="solid" onClick={signOutUser}>
         Logout
       </Button>
     </div>

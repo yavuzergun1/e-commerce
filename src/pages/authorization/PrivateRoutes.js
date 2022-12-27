@@ -4,7 +4,7 @@ import { UseAuth } from "../../contexts/AuthContext";
 // PRIVATEROUTE WITH FIREBASE
 export const LoginPrivateRoutes = ({ children }) => {
   const { currentUser } = UseAuth();
-  return currentUser !== false ? children : <Navigate to="/signup" />;
+  return currentUser !== null ? children : <Navigate to="/signup" />;
 };
 
 // PRIVATEROUTE WITH BACKEND
@@ -17,3 +17,4 @@ export const AdminPrivateRoutes = ({ children }) => {
   const { user } = UseAuth();
   return user && user.role === "admin" ? children : <Navigate to="/e-commerce" />;
 };
+
