@@ -14,18 +14,26 @@ function Profile() {
   // }
 
   let navigate = useNavigate();
-  const logout = async () => {
-    setIsLogin(false);
-    setUser(null);
 
-    await postLogout();
-
-    localStorage.removeItem("access-token");
-    localStorage.removeItem("refresh-token");
-
+  // LOGOUT WITH FIREBASE
+  const Logout = async () => {
+    signOutUser();
     navigate("/products");
-    setItems([])
   };
+
+  // LOGOUT WITH BACKEND
+  // const logout = async () => {
+  //   setIsLogin(false);
+  //   setUser(null);
+
+  //   await postLogout();
+
+  //   localStorage.removeItem("access-token");
+  //   localStorage.removeItem("refresh-token");
+
+  //   navigate("/products");
+  //   setItems([])
+  // };
   return (
     <div>
       <Heading as="h2" size="3xl">
@@ -35,7 +43,7 @@ function Profile() {
       <br />
       <br />
 
-      <Button colorScheme="blue" variant="solid" onClick={signOutUser}>
+      <Button colorScheme="blue" variant="solid" onClick={Logout}>
         Logout
       </Button>
     </div>
