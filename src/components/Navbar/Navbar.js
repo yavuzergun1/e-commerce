@@ -7,7 +7,7 @@ import { UseBasket } from "../../contexts/BasketContext";
 
 function Navbar() {
   // const { isLogin, user } = UseAuth();
-  const { currentUser } = UseAuth( );
+  const { currentUser } = UseAuth();
   const { items } = UseBasket();
 
   console.log(items);
@@ -27,7 +27,7 @@ function Navbar() {
         </div>
 
         <div className="right">
-          {!isLogin && (
+          {!currentUser && (
             <>
               <Link to="/login" className="login">
                 <Button colorScheme="blue">Login</Button>
@@ -38,7 +38,7 @@ function Navbar() {
             </>
           )}
 
-          {isLogin && (
+          {currentUser && (
             <>
               {items.length > 0 && (
                 <Link to="/basket">
@@ -48,12 +48,12 @@ function Navbar() {
                   </Button>
                 </Link>
               )}
-
-              {user?.role === "admin" && (
+              {/* PRIVATE ROUTES */}
+              {/* {user?.role === "admin" && (
                 <Link to="/admin">
                   <Button colorScheme="blue">admin</Button>
                 </Link>
-              )}
+              )} */}
 
               <Link to="/profile" className="profile">
                 <Button colorScheme="blue">Profile</Button>
