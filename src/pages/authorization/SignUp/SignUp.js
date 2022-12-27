@@ -10,7 +10,11 @@ import {
   Alert,
 } from "@chakra-ui/react";
 import GoogleButton from "react-google-button";
-import { signInWithGooglePopup, createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../../FirebaseUtils";
+import {
+  signInWithGooglePopup,
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
+} from "../../../FirebaseUtils";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import validationSchema from "./Validations";
@@ -31,11 +35,11 @@ function SignUp() {
     // LOGIN WITH FIREBASE
     onSubmit: async (values, bag) => {
       try {
-        const  user  = await createAuthUserWithEmailAndPassword({
+        const { user } = await createAuthUserWithEmailAndPassword({
           email: values.email,
           password: values.password,
         });
-        console.log("user",user);
+        console.log("user", user);
 
         await createUserDocumentFromAuth(user);
       } catch (error) {
