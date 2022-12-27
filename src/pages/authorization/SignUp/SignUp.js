@@ -31,7 +31,7 @@ function SignUp() {
     // LOGIN WITH FIREBASE
     onSubmit: async (values, bag) => {
       try {
-        const { user } = await createAuthUserWithEmailAndPassword({
+        const  user  = await createAuthUserWithEmailAndPassword({
           email: values.email,
           password: values.password,
         });
