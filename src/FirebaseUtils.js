@@ -55,10 +55,8 @@ export const createUserDocumentFromAuth = async (
   const userDocRef = doc(db, "users", user.uid);
   console.log("userDocRef", userDocRef);
   const docSnap = await getDoc(userDocRef);
-  console.log(docSnap);
 
   const userSnapShot = await getDoc(userDocRef);
-  console.log("isExist", userSnapShot);
   if (!userSnapShot.exists()) {
     const { email, displayName } = user;
     const createdAt = new Date(); /* this'll show as when was data set */
@@ -120,15 +118,16 @@ export const addCollectionDocuments = async (collectionkey, objectsToAdd) => {
 export const getCategoriesAndDocuments = async () => {
   const docRef = doc(db, "products", "products");
   const docSnap = await getDoc(docRef);
+  const data = docSnap.data();
+  return data;
   // console.log(docSnap.data());
-//   const q = query(collectionRef);
+  //   const q = query(collectionRef);
 
-//   const querySnapShot = await getDocs(collectionRef);
-//   console.log(querySnapShot);
-// const categoryMap = querySnapShot.docs.reduce((acc, docSnapShot) => {
-//   const { title, items } = docSnapShot.data();
-//   acc[title.toLowerCase()] = items;
-//   return acc;
-// }, {});
-return docSnap.data();
+  //   const querySnapShot = await getDocs(collectionRef);
+  //   console.log(querySnapShot);
+  // const categoryMap = querySnapShot.docs.reduce((acc, docSnapShot) => {
+  //   const { title, items } = docSnapShot.data();
+  //   acc[title.toLowerCase()] = items;
+  //   return acc;
+  // }, {});
 };

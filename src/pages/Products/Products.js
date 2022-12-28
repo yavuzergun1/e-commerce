@@ -3,14 +3,13 @@ import Card from "../../components/Card/Card";
 import { Box, Flex, Grid, Spinner } from "@chakra-ui/react";
 import { useInfiniteQuery } from "react-query";
 import { getProductList } from "../../Data";
-import products from "../../products.json";
 import {
   addCollectionDocuments,
   getCategoriesAndDocuments,
 } from "../../FirebaseUtils";
 
 function Products() {
-  const [products, setProducts] = useState();
+  const [items, setItems] = useState();
   // SEND JSON DATA TO FIREBASE
   // useEffect(() => {
   //   addCollectionDocuments("products", products);
@@ -21,18 +20,16 @@ function Products() {
   useEffect(
     /* async */ () => {
       // BURADA YUKARIDAKİ GİBİ USEEFFECT İÇİNDE ASYNC FUNCTİON KULLANAMAYIZ. bUNU YAPMAK İÇİN AŞAĞIDA OLDUĞU GİBİ YENİ BİR ASYNC FUNCTİON OLUŞTURUYORUZ:
-      
+
       const getCategoriesMap = async () => {
         const data = await getCategoriesAndDocuments();
-        setProducts(data);
-        console.log(data);
+        setItems(data);
       };
-      getCategoriesMap();
+      return getCategoriesMap;
     },
     []
   );
-
-  console.log("products", products);
+items && console.log("products", items);
   // PRODUCTS FROM BACKEND
   // const {
   //   error,
@@ -63,12 +60,10 @@ function Products() {
 
   return (
     <div>
-{/* {products.map((product)=> console.log(product))} */}
 
-      {/* <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-        {products && console.log(products)}
-        {products
-          && products.map((product, i) => (
+      <Grid templateColumns="repeat(3, 1fr)" gap={6}>
+        {items
+          && items.products.map((product, i) => (
               <React.Fragment key={i}>
                 <Box>
                   <Card item={product} />
@@ -76,7 +71,7 @@ function Products() {
               </React.Fragment>
             ))
           }
-      </Grid> */}
+      </Grid>
     </div>
   );
 }
