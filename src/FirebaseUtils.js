@@ -20,6 +20,7 @@ import {
   query,
   getDocs,
 } from "firebase/firestore";
+import products from "./products.json";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDuEA1F7pMLqXZHBaatTZxyV-k4e64m2I4",
@@ -40,10 +41,10 @@ googleProvider.setCustomParameters({
 });
 
 export const auth = getAuth();
-console.log("auth", auth);
 
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
+console.log("auth", auth.currentUser);
 
 export const createUserDocumentFromAuth = async (
   user,
@@ -52,26 +53,29 @@ export const createUserDocumentFromAuth = async (
   if (!user) return;
   // there are 3 things inside doc: database, collection, idetifier
   const userDocRef = doc(db, "users", user.uid);
-  // console.log("userDocRef", userDocRef);
+  console.log("userDocRef", userDocRef);
+  const docSnap = await getDoc(userDocRef);
+  console.log(docSnap);
 
   const userSnapShot = await getDoc(userDocRef);
-  // console.log("isExist", userSnapShot.exists());
-
+  console.log("isExist", userSnapShot);
   if (!userSnapShot.exists()) {
-    const { email } = user;
+    const { email, displayName } = user;
     const createdAt = new Date(); /* this'll show as when was data set */
 
     try {
       await setDoc(userDocRef, {
+        displayName,
+        email,
         createdAt,
         ...additionalInformation,
       });
+      console.log("userDocref2", userDocRef);
     } catch (err) {
       console.log(err);
     }
     console.log("user", user);
   }
-  console.log("userDocref2", userDocRef);
   // if snapShot exist
   return userDocRef;
 };
@@ -92,3 +96,39 @@ export const signOutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
+
+// SENDING A JSON FILE TO FIREBASE
+export const addCollectionDocuments = async (collectionkey, objectsToAdd) => {
+  // const collectionRef = collection(db, collectionkey);
+  // await setDoc(doc(db, collectionkey, objectsToAdd));
+
+  await setDoc(doc(db, "products", "products"), {
+    products,
+  });
+  // const batch = writeBatch(db);
+
+  // objectsToAdd.map((object) => {
+  //   const docRef = doc(collectionRef, object.title.toLowerCase());
+  //   batch.set(docRef, object);
+  // });
+
+  // await batch.commit();
+  // console.log("done");
+};
+
+// GET DATA FROM FIREBASE
+export const getCategoriesAndDocuments = async () => {
+  const docRef = doc(db, "products", "products");
+  const docSnap = await getDoc(docRef);
+  // console.log(docSnap.data());
+//   const q = query(collectionRef);
+
+//   const querySnapShot = await getDocs(collectionRef);
+//   console.log(querySnapShot);
+// const categoryMap = querySnapShot.docs.reduce((acc, docSnapShot) => {
+//   const { title, items } = docSnapShot.data();
+//   acc[title.toLowerCase()] = items;
+//   return acc;
+// }, {});
+return docSnap.data();
+};

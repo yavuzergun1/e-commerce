@@ -5,12 +5,18 @@ import { signOutUser } from "../../../FirebaseUtils";
 import { UseAuth } from "../../../contexts/AuthContext";
 import { postLogout } from "../../../Data";
 import { UseBasket } from "../../../contexts/BasketContext";
+import { auth } from "../../../FirebaseUtils";
 
-function Profile() {
-  const { user, setIsLogin, isLogin, setUser } = UseAuth();
+
+  function Profile() {
+  const { user, currentUser, setIsLogin, isLogin, setUser } = UseAuth();
   const { setItems } = UseBasket();
 
-
+const curUser = auth.currentUser;
+if (curUser !== null) {
+  const display = curUser.displayName;
+  console.log(display);
+}
   let navigate = useNavigate();
 
   // LOGOUT WITH FIREBASE
@@ -18,7 +24,7 @@ function Profile() {
     signOutUser();
     navigate("/products");
   };
-
+console.log(currentUser);
   // LOGOUT WITH BACKEND
   // const logout = async () => {
   //   setIsLogin(false);

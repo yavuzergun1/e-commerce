@@ -27,21 +27,28 @@ function SignUp() {
 
   const { handleSubmit, handleChange, values, errors, touched } = useFormik({
     initialValues: {
+      username: "",
       email: "",
       password: "",
       passwordConfirm: "",
     },
     validationSchema,
+
     // LOGIN WITH FIREBASE
     onSubmit: async (values, bag) => {
       try {
         const { user } = await createAuthUserWithEmailAndPassword({
+          displayName: values.username,
           email: values.email,
           password: values.password,
         });
         console.log("user", user);
 
-        await createUserDocumentFromAuth(user);
+        await createUserDocumentFromAuth(user, {
+          displayName: values.username,
+          email: values.email,
+        });
+        navigate("/products");
       } catch (error) {
         if (error.code === "auth/email-already-in-use") {
           alert("Cannot create user, email already in use");
@@ -70,6 +77,7 @@ function SignUp() {
 
   const signInWithGoogle = async () => {
     await signInWithGooglePopup();
+    navigate("/products");
   };
 
   return (
@@ -86,10 +94,22 @@ function SignUp() {
           </Box>
           <Box my={5} textAlign="left">
             <form onSubmit={handleSubmit}>
-              <FormControl>
-                <FormLabel>E-mail</FormLabel>
+              <FormControl mt="4">
+                <FormLabel>User Name</FormLabel>
+                <Input
+                  name="username"
+                  type="string"
+                  onChange={handleChange}
+                  isInvalid={touched.username && errors.username}
+                />
+              </FormControl>
+              {touched.username && errors.username}
+
+              <FormControl mt="4">
+                <FormLabel>Email</FormLabel>
                 <Input
                   name="email"
+                  type="email"
                   onChange={handleChange}
                   isInvalid={
                     touched.email && errors.email

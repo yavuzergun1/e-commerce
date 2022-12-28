@@ -28,6 +28,7 @@ function Login() {
 
   const signInWithGoogle = async () => {
     await signInWithGooglePopup();
+    navigate("/products");
   };
 
   const { handleSubmit, handleChange, values, errors, touched } = useFormik({
@@ -37,24 +38,23 @@ function Login() {
     },
     validationSchema,
     onSubmit: async (values, bag) => {
+      try {
+        await signInAuthUserWithEmailAndPassword(values.email, values.password);
+        navigate("/products");
+      } catch (error) {
+        switch (error.code) {
+          case "auth/wrong-password":
+            message.error("Invalid Password");
+            break;
+          case "auth/user-not-found":
+            message.error("Invalid email");
+            break;
 
-    try {
-      await signInAuthUserWithEmailAndPassword(values.email, values.password);
-      navigate("/products")
-    } catch (error) {
-      switch (error.code) {
-        case "auth/wrong-password":
-          message.error("Invalid Password");
-          break;
-        case "auth/user-not-found":
-          message.error("Invalid email");
-          break;
-
-        default:
-          console.log(error);
+          default:
+            console.log(error);
+        }
       }
-    }
-      
+
       // LOGIN WITH BACKEND
       // try {
       //   const loginResponse = await postLogin({

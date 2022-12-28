@@ -14,8 +14,9 @@ function Card({ item }) {
   );
 
   return (
-    <Box  borderWidth="1px" borderRadius="5" p="1" overflow="hidden">
-      <Link to={`/product/${item._id}`}>
+    <Box borderWidth="1px" borderRadius="5" p="1" overflow="hidden">
+      {item.title}
+      {/* <Link to={`/product/${item._id}`}>
         <Image height={255} src={item.photos[0]} alt="product" loading="lazy" />
         <Box p="6">
           <Box d="plex" alignItems="baseline">
@@ -33,7 +34,7 @@ function Card({ item }) {
         onClick={() => addToBasket(item, isBasketItem)}
       >
         {isLogin && isBasketItem ? "Remove from Basket" : "Add to Basket"}
-      </Button>
+      </Button> */}
     </Box>
   );
 }
