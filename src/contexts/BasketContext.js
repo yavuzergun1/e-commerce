@@ -16,7 +16,7 @@ const BasketProvider = ({ children }) => {
     localStorage.setItem("basket", JSON.stringify(items));
   }, [items]);
 
-  const addToBasket = (data, isBasketItem, item) => {
+  const addToBasket = (item, isBasketItem) => {
     // Eğer ürün sepetteyse sepetten çıkar
     if (isBasketItem) {
       const filtered = items.filter((item) => item._id !== isBasketItem._id);
@@ -24,7 +24,7 @@ const BasketProvider = ({ children }) => {
     }
     if (isLogin) {
       /* ürün sepette değilse ve üye girişi yapılmışsa sepete ekle */
-      setItems((prev) => [...prev, data]);
+      setItems((prev) => [...prev, item]);
     } else {
       /* üye girişi yapılmamışsa sepete ekleme ve uyarı ver */
       toast({

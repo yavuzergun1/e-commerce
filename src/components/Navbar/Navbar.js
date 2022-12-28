@@ -6,10 +6,10 @@ import { UseAuth } from "../../contexts/AuthContext";
 import { UseBasket } from "../../contexts/BasketContext";
 
 function Navbar() {
-  const { isLogin, user } = UseAuth();
-  const {items} = UseBasket();
+  // const { isLogin, user } = UseAuth();
+  const { currentUser } = UseAuth();
+  const { items } = UseBasket();
 
-console.log(items);
 
   return (
     <div>
@@ -26,7 +26,7 @@ console.log(items);
         </div>
 
         <div className="right">
-          {!isLogin && (
+          {!currentUser && (
             <>
               <Link to="/login" className="login">
                 <Button colorScheme="blue">Login</Button>
@@ -37,30 +37,28 @@ console.log(items);
             </>
           )}
 
-          {isLogin && (
+          {currentUser && (
             <>
+              {items.length > 0 && (
+                <Link to="/basket">
+                  <Button colorScheme="facebook" variant="outline">
+                    {" "}
+                    Basket: {items.length} item{" "}
+                  </Button>
+                </Link>
+              )}
+              {/* PRIVATE ROUTES */}
+              {/* {user?.role === "admin" && (
+                <Link to="/admin">
+                  <Button colorScheme="blue">admin</Button>
+                </Link>
+              )} */}
 
-{items.length > 0 && (
-  <Link to="/basket">
-    <Button colorScheme="facebook" variant="outline" > Basket: {items.length} item </Button>
-  </Link>
-)}
-
-{
-  user?.role ==='admin' && (
-    <Link to="/admin">
-    <Button colorScheme="blue">admin</Button>
-    </Link>
-  )
-}
-
-            <Link to="/profile" className="profile">
+              <Link to="/profile" className="profile">
                 <Button colorScheme="blue">Profile</Button>
               </Link>
             </>
-          )
-
-          }
+          )}
         </div>
       </nav>
       <Outlet />

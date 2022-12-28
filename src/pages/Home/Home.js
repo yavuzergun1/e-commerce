@@ -49,7 +49,7 @@ function Home() {
     <div>
       <Carousel
     swipeable={false}
-    draggable={true}
+    draggable={false}
     showDots={true}
     shouldResetAutoplay={true}
     responsive={responsive}
@@ -60,7 +60,7 @@ function Home() {
     autoPlay={true}
     autoPlaySpeed={3000}
     keyBoardControl={true}
-    customTransition="transform 3000ms cubic-bezier(0.79,-0.3, 0.32, 1.20) "
+    customTransition="transform 2000ms cubic-bezier(0.79,-0.3, 0.32, 1.20) "
     transitionDuration={3000}
     containerClass="carousel-container"
     removeArrowOnDeviceType={["tablet", "mobile"]}
