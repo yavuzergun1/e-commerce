@@ -6,7 +6,8 @@ import { UseBasket } from "../../contexts/BasketContext";
 import { UseAuth } from "../../contexts/AuthContext";
 
 function Card({ item }) {
-  const { isLogin } = UseAuth();
+  // const { isLogin } = UseAuth(); /* ISLOGIN FROM BACKEND */
+  const { currentUser } = UseAuth();
   const { addToBasket, items } = UseBasket();
 
   const isBasketItem = items.find(
@@ -30,10 +31,11 @@ function Card({ item }) {
       </Link>
       <Box p="6"></Box>
       <Button
-        colorScheme={isLogin && isBasketItem ? "pink" : "green"}
+        colorScheme={currentUser && isBasketItem ? "pink" : "green"}
         onClick={() => addToBasket(item, isBasketItem)}
       >
-        {isLogin && isBasketItem ? "Remove from Basket" : "Add to Basket"}
+        {currentUser
+          && isBasketItem ? "Remove from Basket" : "Add to Basket"}
       </Button>
     </Box>
   );
