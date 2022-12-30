@@ -13,6 +13,7 @@ const BasketProvider = ({ children }) => {
   const [response, setResponse] = useState();
   const [orderTotal, setOrderTotal] = useState();
   const toast = useToast();
+  
   useEffect(() => {
     localStorage.setItem("basket", JSON.stringify(items));
   }, [items]);

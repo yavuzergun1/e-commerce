@@ -41,15 +41,15 @@ function Basket() {
       address: "",
     },
     onSubmit: async (values) => {
-      const itemIds = items.map((item) => item._id);
+      const itemIds = items.map((item) => item._id.$oid);
       const address = values.address;
-      const input = {
-        address /* backendde karşılığı olmadığı için name ve phone verileri dahil edilmedi */,
-        items: JSON.stringify(itemIds),
-      };
-      const res = await postOrder(input);
-      setResponse(res); /* geri dönen response verisini tanımlandı */
-      setOrderTotal(total); /* sparişin toplam tutarını orderDetails'a göndermek üzere tanımlandı */
+      // const input = {
+      //   address /* backendde karşılığı olmadığı için name ve phone verileri dahil edilmedi */,
+      //   items: JSON.stringify(itemIds),
+      // };
+      // const res = await postOrder(input);
+      // setResponse(res); /* geri dönen response verisini tanımlandı */
+      // setOrderTotal(total); /* sparişin toplam tutarını orderDetails'a göndermek üzere tanımlandı */
       onClose(); /* Modal'ı kapatır */
       // Spariş Başarılı Mesajı:
       toast({
@@ -61,7 +61,7 @@ function Basket() {
         isClosable: true,
       });
       setItems([]); /* Sparişten sonra sepetin içini boşaltır */
-      navigate("/orderDetails"); /* Spariş bilgi sayfasına yönlendirir */
+      navigate("/products"); /* Spariş bilgi sayfasına yönlendirir */
     },
   });
   console.log("items", items);
@@ -75,7 +75,7 @@ function Basket() {
       <div className="main-container">
         <div className="cards-container">
           {items.map((item) => (
-            <React.Fragment key={item._id}>
+            <React.Fragment key={item._id.$oid}>
               <div className="card-container">
                 <Card item={item} />
               </div>
@@ -105,7 +105,7 @@ function Basket() {
               <ModalHeader>Order</ModalHeader>
               <ModalCloseButton />
               <ModalBody pb={6}>
-                <FormControl isRequired isInvalid={""}>
+                <FormControl isRequired isInvalid={"boş bırakmayın"}>
                   <FormLabel>Name</FormLabel>
                   <Input
                     name="name"
