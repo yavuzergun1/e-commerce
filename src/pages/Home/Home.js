@@ -3,8 +3,6 @@ import { useQuery } from 'react-query';
 import { getProductList } from '../../Data';
 import { Spinner, Flex } from '@chakra-ui/react';
 import Card from "../../components/Card/Card"
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
 
 function Home() {
 
@@ -47,37 +45,7 @@ function Home() {
 
   return (
     <div>
-      <Carousel
-    swipeable={false}
-    draggable={false}
-    showDots={true}
-    shouldResetAutoplay={true}
-    responsive={responsive}
-    ssr={true} // means to render carousel on server-side.
-    infinite={true}
-    rewind={true}
-    rewindWithAnimation={true}
-    autoPlay={true}
-    autoPlaySpeed={3000}
-    keyBoardControl={true}
-    customTransition="transform 2000ms cubic-bezier(0.79,-0.3, 0.32, 1.20) "
-    transitionDuration={3000}
-    containerClass="carousel-container"
-    removeArrowOnDeviceType={["tablet", "mobile"]}
-    // deviceType={this.props.deviceType}
-    dotListClass="custom-dot-list-style"
-    itemClass="carousel-item-padding-40-px"
-    
-  >
-{data && data.map((item) => 
 
-(<div key={item._id}>
-  <Card item={item}/>
-  
-  </div>)
-)}
-       
-  </Carousel>
     </div>
   )
 }
