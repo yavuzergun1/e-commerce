@@ -28,7 +28,7 @@ function Products() {
     },
     []
   );
-items && console.log("products", items);
+ console.log("products", items);
   // PRODUCTS FROM BACKEND
   // const {
   //   error,
