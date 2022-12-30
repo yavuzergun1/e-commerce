@@ -62,7 +62,6 @@ function Products() {
 
   return (
     <div>
-      PRODUCTS PAGE
       <Grid templateColumns="repeat(3, 1fr)" gap={6}>
         {items &&
           items.products.map((product, i) => (
