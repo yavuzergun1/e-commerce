@@ -7,11 +7,13 @@ const BasketContext = createContext();
 const defaultBasket = JSON.parse(localStorage.getItem("basket")) || [];
 
 const BasketProvider = ({ children }) => {
-  const { isLogin } = UseAuth();
+  // const { isLogin } = UseAuth(); ISLOGIN FROM BACKEND
+  const { currentUser } = UseAuth();
   const [items, setItems] = useState(defaultBasket);
   const [response, setResponse] = useState();
-  const [orderTotal, setOrderTotal]= useState();
+  const [orderTotal, setOrderTotal] = useState();
   const toast = useToast();
+  
   useEffect(() => {
     localStorage.setItem("basket", JSON.stringify(items));
   }, [items]);
@@ -22,7 +24,7 @@ const BasketProvider = ({ children }) => {
       const filtered = items.filter((item) => item._id !== isBasketItem._id);
       return setItems(filtered);
     }
-    if (isLogin) {
+    if (currentUser) {
       /* ürün sepette değilse ve üye girişi yapılmışsa sepete ekle */
       setItems((prev) => [...prev, item]);
     } else {
@@ -45,7 +47,7 @@ const BasketProvider = ({ children }) => {
     setResponse,
     addToBasket,
     orderTotal,
-    setOrderTotal
+    setOrderTotal,
   };
   console.log(orderTotal);
   return (
