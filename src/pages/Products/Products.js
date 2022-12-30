@@ -16,7 +16,6 @@ function Products() {
   // }, []);
 
   //GET PRODUCTS FROM FIREBASE
-
   useEffect(
     /* async */ () => {
       // BURADA YUKARIDAKİ GİBİ USEEFFECT İÇİNDE ASYNC FUNCTİON KULLANAMAYIZ. bUNU YAPMAK İÇİN AŞAĞIDA OLDUĞU GİBİ YENİ BİR ASYNC FUNCTİON OLUŞTURUYORUZ:
@@ -60,17 +59,16 @@ items && console.log("products", items);
 
   return (
     <div>
-
+      PRODUCTS PAGE
       <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-        {items
-          && items.products.map((product, i) => (
-              <React.Fragment key={i}>
-                <Box>
-                  <Card item={product} />
-                </Box>
-              </React.Fragment>
-            ))
-          }
+        {items &&
+          items.products.map((product, i) => (
+            <React.Fragment key={i}>
+              <Box>
+                <Card item={product} />
+              </Box>
+            </React.Fragment>
+          ))}
       </Grid>
     </div>
   );
