@@ -4,8 +4,6 @@ import { useParams } from "react-router-dom";
 import { getProduct } from "../../Data";
 import { Text,Button,Flex,Spinner} from "@chakra-ui/react";
 import { UseBasket } from "../../contexts/BasketContext";
-import "@animxyz/core";
-import {XyzTransition} from "@animxyz/react";
 import Slider from "../../components/Slider/Slider";
 import moment from "moment";
 import "./productDetails.scss";
