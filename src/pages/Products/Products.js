@@ -24,11 +24,14 @@ function Products() {
         const data = await getCategoriesAndDocuments();
         setItems(data);
       };
-      return getCategoriesMap;
+      // return getCategoriesMap;
+      getCategoriesMap();
     },
+
     []
   );
- console.log("products", items);
+
+  console.log("products", items);
   // PRODUCTS FROM BACKEND
   // const {
   //   error,
