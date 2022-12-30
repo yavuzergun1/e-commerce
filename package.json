@@ -1,5 +1,5 @@
 {
-  "homepage": "https://yavuzergun1.github.io/e-commerce",
+  "homepage": "e-commerce",
   "name": "e-commerce",
   "version": "0.1.0",
   "private": true,
@@ -52,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^4.0.0",
     "sass": "^1.57.1"
   }
 }
