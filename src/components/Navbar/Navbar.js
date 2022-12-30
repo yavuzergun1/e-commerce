@@ -16,7 +16,7 @@ function Navbar() {
       <nav className="nav">
         <div className="left">
           <div className="logo">
-            <Link to="/e-commerce">eCommerce</Link>
+            <Link to="/">eCommerce</Link>
           </div>
           <ul className="menu">
             <li>
