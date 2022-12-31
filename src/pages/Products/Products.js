@@ -8,12 +8,14 @@ import {
   getCategoriesAndDocuments,
 } from "../../FirebaseUtils";
 
+import products from "../../products.json";
+
 function Products() {
   const [items, setItems] = useState();
   // SEND JSON DATA TO FIREBASE
-  // useEffect(() => {
-  //   addCollectionDocuments("products", products);
-  // }, []);
+  useEffect(() => {
+    addCollectionDocuments("products", products);
+  }, []);
 
   //GET PRODUCTS FROM FIREBASE
   useEffect(
