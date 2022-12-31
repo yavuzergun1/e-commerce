@@ -8,30 +8,32 @@ import {
   getCategoriesAndDocuments,
 } from "../../FirebaseUtils";
 
+import products from "../../products.json";
+
 function Products() {
   const [items, setItems] = useState();
   // SEND JSON DATA TO FIREBASE
-  // useEffect(() => {
-  //   addCollectionDocuments("products", products);
-  // }, []);
+  useEffect(() => {
+    addCollectionDocuments("products", products);
+  }, []);
 
   //GET PRODUCTS FROM FIREBASE
   useEffect(
     /* async */ () => {
       // BURADA YUKARIDAKİ GİBİ USEEFFECT İÇİNDE ASYNC FUNCTİON KULLANAMAYIZ. bUNU YAPMAK İÇİN AŞAĞIDA OLDUĞU GİBİ YENİ BİR ASYNC FUNCTİON OLUŞTURUYORUZ:
 
-      const getCategoriesMap = async () => {
+      const getProducts= async () => {
         const data = await getCategoriesAndDocuments();
         setItems(data);
       };
       // return getCategoriesMap;
-      getCategoriesMap();
+      getProducts();
     },
 
     []
   );
 
-  console.log("products", items);
+  console.log("products", items && items.products);
   // PRODUCTS FROM BACKEND
   // const {
   //   error,
