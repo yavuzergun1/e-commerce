@@ -63,11 +63,8 @@ function ProductDetails() {
 
   return (
     <div className="product-details-main">
-      {data &&
-        data.title
-      }
       <div className="slider-main-container">
-        {/* <Slider data={data} /> */}
+        <Slider data={data} />
       </div>
       <div className="right">
         <Text as="h2" fontSize="2xl">
