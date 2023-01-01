@@ -21,7 +21,7 @@ function Products() {
   useEffect(
     /* async */ () => {
       // BURADA YUKARIDAKİ GİBİ USEEFFECT İÇİNDE ASYNC FUNCTİON KULLANAMAYIZ. bUNU YAPMAK İÇİN AŞAĞIDA OLDUĞU GİBİ YENİ BİR ASYNC FUNCTİON OLUŞTURUYORUZ:
-      const getProducts= async () => {
+      const getProducts = async () => {
         const data = await getCategoriesAndDocuments();
         setItems(data);
       };
@@ -62,16 +62,18 @@ function Products() {
 
   return (
     <div>
-      <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-        {items &&
-          items.products.map((product, i) => (
-            <React.Fragment key={i}>
-              <Box>
-                <Card item={product} />
-              </Box>
-            </React.Fragment>
-          ))}
-      </Grid>
+      <Flex justifyContent="center" width="100%">
+        <Grid width="90%" templateColumns="repeat(3, 1fr)" gap={6}>
+          {items &&
+            items.products.map((product, i) => (
+              <React.Fragment key={i}>
+                <Box>
+                  <Card item={product} />
+                </Box>
+              </React.Fragment>
+            ))}
+        </Grid>
+      </Flex>
     </div>
   );
 }
