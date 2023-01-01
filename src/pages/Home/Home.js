@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { getCategoriesAndDocuments } from '../../FirebaseUtils';
-import { useQuery } from 'react-query';
-import { getProductList } from '../../Data';
-import { Spinner, Flex } from '@chakra-ui/react';
-import Card from "../../components/Card/Card"
+import React, { useEffect, useState } from "react";
+import { getCategoriesAndDocuments } from "../../FirebaseUtils";
+import { useQuery } from "react-query";
+import { getProductList } from "../../Data";
+import { Spinner, Flex } from "@chakra-ui/react";
+import Card from "../../components/Card/Card";
+import HomeSlider from "../../components/Home-Page-Slider/HomeSlider";
 
 function Home() {
   const [items, setItems] = useState();
@@ -21,10 +22,9 @@ function Home() {
 
     []
   );
-console.log(items);
+  console.log(items);
 
-
-// PRODUCTS FROM BACKEND
+  // PRODUCTS FROM BACKEND
   // const { isLoading, isError, data, error } = useQuery(
   //   "admin:products",
   //   getProductList
@@ -39,15 +39,14 @@ console.log(items);
   // if (isError) {
   //   return <div>Error.</div>;
   // }
-
-
-
-
+  if (!items) {
+    return <div>Loading...</div>
+  }
   return (
     <div>
-
+      <HomeSlider products={items.products} />
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
