@@ -48,11 +48,11 @@ function Navbar() {
                 </Link>
               )}
               {/* PRIVATE ROUTES */}
-              {/* {user?.role === "admin" && (
+              {currentUser.uid === "9ddpEVIpP9fMqsRluRCOxvyIGrG2" && (
                 <Link to="/admin">
                   <Button colorScheme="blue">admin</Button>
                 </Link>
-              )} */}
+              )}
 
               <Link to="/profile" className="profile">
                 <Button colorScheme="blue">Profile</Button>

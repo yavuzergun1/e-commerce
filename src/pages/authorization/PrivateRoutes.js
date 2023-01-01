@@ -14,7 +14,11 @@ export const LoginPrivateRoutes = ({ children }) => {
 // };
 
 export const AdminPrivateRoutes = ({ children }) => {
-  const { user } = UseAuth();
-  return user && user.role === "admin" ? children : <Navigate to="/e-commerce" />;
+  const { currentUser } = UseAuth();
+  return currentUser && currentUser.uid === "9ddpEVIpP9fMqsRluRCOxvyIGrG2" ? (
+    children
+  ) : (
+    <Navigate to="/e-commerce" />
+  );
 };
 
