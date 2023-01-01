@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { getProduct } from "../../Data";
 import { Text, Button, Flex, Spinner } from "@chakra-ui/react";
 import { UseBasket } from "../../contexts/BasketContext";
-import Slider from "../../components/Slider/Slider";
+import ProductSlider from "../../components/Products-Slider/ProductSlider";
 import moment from "moment";
 import "./productDetails.scss";
 import { UseAuth } from "../../contexts/AuthContext";
@@ -64,7 +64,7 @@ function ProductDetails() {
   return (
     <div className="product-details-main">
       <div className="slider-main-container">
-        <Slider data={data} />
+        <ProductSlider data={data} />
       </div>
       <div className="right">
         <Text as="h2" fontSize="2xl">
@@ -73,11 +73,15 @@ function ProductDetails() {
         <Text>{moment(data.createdAt).format("DD/MM/YYYY")}</Text>
         <p className="description">{data.description} </p>
 
-        <Button colorScheme={currentUser && isBasketItem ? "purple" : "green"} onClick={() => addToBasket(data, isBasketItem)} >{currentUser && isBasketItem ? "Remove Item ": "Add to Basket"} </Button>
+        <Button
+          colorScheme={currentUser && isBasketItem ? "purple" : "green"}
+          onClick={() => addToBasket(data, isBasketItem)}
+        >
+          {currentUser && isBasketItem ? "Remove Item " : "Add to Basket"}{" "}
+        </Button>
 
-      {/* <div className={currentUser && isBasketItem ? "deneme" : "none"}></div> */}
-
-      </div> 
+        {/* <div className={currentUser && isBasketItem ? "deneme" : "none"}></div> */}
+      </div>
     </div>
   );
 }

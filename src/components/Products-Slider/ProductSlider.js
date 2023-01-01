@@ -16,7 +16,7 @@ import "swiper/scss/effect-fade";
 
 import "./slider.scss";
 
-function Slider({ data }) {
+function ProductSlider({ data }) {
   return (
     <Swiper
       modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay, EffectFade]}
@@ -47,4 +47,4 @@ function Slider({ data }) {
   );
 }
 
-export default Slider;
+export default ProductSlider;
