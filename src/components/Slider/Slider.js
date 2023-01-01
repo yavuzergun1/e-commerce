@@ -1,21 +1,39 @@
 import React from "react";
-import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper";
+import {
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y,
+  Autoplay,
+  EffectFade,
+} from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+import "swiper/scss";
+import "swiper/scss/autoplay";
+import "swiper/scss/navigation";
+import "swiper/scss/pagination";
+import "swiper/scss/effect-fade";
 
-import "./slider.scss"
+import "./slider.scss";
 
-function Slider({data}) {
+function Slider({ data }) {
   return (
     <Swiper
-      modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-      spaceBetween={0}
+      modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay, EffectFade]}
       slidesPerView={1}
-      autoplay={{ delay: 1000, pauseOnMouseEnter: "true" }}
-      navigation
+      autoplay={{
+        delay: 2000,
+        pauseOnMouseEnter: "true",
+        disableOnInteraction: false,
+      }}
+      effect={"fade"}
       loop
-      pagination
-       
+      speed={2000}
+      pagination={{
+        clickable: true,
+        dynamicBullets: true,
+        dynamicMainBullets: 5,
+      }}
     >
       {data &&
         data.photos.map((photo, index) => {
